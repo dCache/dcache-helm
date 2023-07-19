@@ -1,6 +1,6 @@
 # Helm chart for dCache deployments in Kubernetes
 
-## TL;TD
+## TL;DR
 
 ```
 helm install my-release .
