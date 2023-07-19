@@ -1,0 +1,23 @@
+{{- range .Values.dcache.pools }}
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $.Release.Name }}-pool-{{ . }}-svc
+  labels:
+    app: pool-{{ . }}
+spec:
+  selector:
+    app: pool-{{ . }}
+  ports:
+    - name: nfs-mover
+      port: {{ $.Values.mover.nfs }}
+      targetPort: {{ $.Values.mover.nfs }}
+    - name: xroot-mover
+      port: {{ $.Values.mover.xrootd }}
+      targetPort: {{ $.Values.mover.xrootd }}
+    - name: http-mover
+      port: {{ $.Values.mover.http }}
+      targetPort: {{ $.Values.mover.http }}
+---
+{{- end }}

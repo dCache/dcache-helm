@@ -1,0 +1,47 @@
+{{- range .Values.dcache.pools }} 
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ $.Release.Name }}-pool-{{ . }}
+spec:
+  selector:
+    matchLabels:
+      app: pool-{{ . }}
+  replicas: 1
+  serviceName: {{ $.Release.Name }}-pool-{{ . }}-svc
+  template:
+    metadata:
+      labels:
+        app: pool-{{ . }}
+    spec:
+      containers:
+      - name: pool
+        image: "dcache/dcache-test:8.1e"
+        command: ["/run.sh", "dcache-pool-svc-{{ . }}"]
+        env:
+          - name: AUTOCA_URL
+            value: https://ci.dcache.org/ca
+        volumeMounts:
+        - name: dcache-config
+          mountPath: /etc/dcache/dcache.conf
+          subPath: dcache.conf
+          readOnly: true
+        - name: dcache-layout
+          mountPath: /etc/dcache/layouts/dcache-k8s.conf
+          subPath: dcache.conf
+          readOnly: true
+      volumes:
+      - name: dcache-config
+        configMap:
+          name: {{ $.Release.Name }}-configmap
+          items:
+          - key: "dcache.conf"
+            path: "dcache.conf"
+      - name: dcache-layout
+        configMap:
+          name: {{ $.Release.Name }}-configmap
+          items:
+          - key: "config-pool-{{ . }}"
+            path: "dcache.conf"
+---
+{{- end }}

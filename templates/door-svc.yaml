@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-door-svc
+  labels:
+    app: door
+spec:
+  selector:
+    app: door
+  ports:
+    - name: nfs-door
+      port: {{ .Values.door.ports.nfs }}
+      targetPort: 2049
+    - name: xroot-door
+      port: {{ .Values.door.ports.xroot }}
+      targetPort: 1094
+    - name: webdav-door
+      port: {{ .Values.door.ports.webdav }}
+      targetPort: 8080
+    - name: cell-tunnel
+      port: {{ .Values.cell.tunnel }}
+      targetPort: 11111   

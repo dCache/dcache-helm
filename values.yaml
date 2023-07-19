@@ -1,0 +1,23 @@
+
+image: dcache/dcache
+
+
+dcache:
+  pools:
+    - a
+    - b
+    - c 
+
+cell:
+  tunnel: 11111
+
+door:
+  ports:
+    nfs: 2049
+    xrootd: 1094
+    http: 8080
+
+mover:
+  nfs: 32049
+  xrootd: 31094
+  http: 38080

@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}-dcache-door
+spec:
+  selector:
+    matchLabels:
+      app: door
+  replicas: 1
+  serviceName: {{ .Release.Name }}-door-svc
+  template:
+    metadata:
+      labels:
+        app: door
+    spec:
+      containers:
+      - name: dcache-door
+        image: dcache/dcache-test:8.1e
+        command: ["/run.sh", "dcache-door-svc"]
+        env:
+          - name: AUTOCA_URL
+            value: https://ci.dcache.org/ca
+        #readinessProbe:
+        #  tcpSocket:
+        #    port: 2049
+        #  initialDelaySeconds: 90
+        #  timeoutSeconds: 5
+        #livenessProbe:
+        #  tcpSocket:
+        #    port: 2049
+        #  initialDelaySeconds: 90
+        #  timeoutSeconds: 5
+        volumeMounts:
+        - name: dcache-config
+          mountPath: /etc/dcache/dcache.conf
+          subPath: dcache.conf
+          readOnly: true
+        - name: dcache-layout
+          mountPath: /etc/dcache/layouts/dcache-k8s.conf
+          subPath: dcache-k8s.conf
+          readOnly: true
+        - name: init-scripts
+          mountPath: /dcache.init.d/00-init.sh
+          subPath: 00-init.sh
+          readOnly: true
+        - name: exports
+          mountPath: /etc/dcache/exports
+          subPath: exports
+          readOnly: true
+      volumes:      
+      - name: dcache-config
+        configMap:
+          name: {{ $.Release.Name }}-configmap
+          items:
+          - key: "dcache.conf"
+            path: "dcache.conf"
+      - name: dcache-layout
+        configMap:
+          name: {{ $.Release.Name }}-configmap
+          items:
+          - key: "dcache-k8s.conf"
+            path: "dcache-k8s.conf"
+      - name: init-scripts
+        configMap:
+          name: {{ $.Release.Name }}-configmap
+          items:
+          - key: "00-init.sh"
+            path: "00-init.sh"
+      - name: exports
+        configMap:
+          name: {{ $.Release.Name }}-configmap
+          items:
+          - key: "export"
+            path: "exports"
