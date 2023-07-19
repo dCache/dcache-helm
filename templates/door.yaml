@@ -16,7 +16,7 @@ spec:
       containers:
       - name: dcache-door
         image: dcache/dcache-test:8.1e
-        command: ["/run.sh", "dcache-door-svc"]
+        command: ["/run.sh", "{{ $.Release.Name }}-door-svc" ]
         env:
           - name: AUTOCA_URL
             value: https://ci.dcache.org/ca

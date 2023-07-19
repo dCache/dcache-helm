@@ -17,7 +17,7 @@ spec:
       containers:
       - name: pool
         image: "dcache/dcache-test:8.1e"
-        command: ["/run.sh", "dcache-pool-svc-{{ . }}"]
+        command: ["/run.sh", "{{ $.Release.Name }}-pool-{{ . }}-svc"]
         env:
           - name: AUTOCA_URL
             value: https://ci.dcache.org/ca
