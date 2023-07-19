@@ -15,7 +15,7 @@ door:
   ports:
     nfs: 2049
     xrootd: 1094
-    http: 8080
+    webdav: 8080
 
 mover:
   nfs: 32049
