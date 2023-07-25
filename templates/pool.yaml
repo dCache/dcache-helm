@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
       - name: pool
-        image: "dcache/dcache-test:8.1e"
+        image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag | default $.Chart.AppVersion }}"
+        imagePullPolicy: {{ $.Values.image.pullPolicy }}
         command: ["/run.sh", "{{ $.Release.Name }}-pool-{{ . }}-svc"]
         env:
           - name: AUTOCA_URL

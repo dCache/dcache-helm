@@ -2,7 +2,7 @@ annotations:
   category: Infrastructure
   licenses: Apache-2.0
 apiVersion: v2
-appVersion: "9.1.0"
+appVersion: "8.1e"
 name: dcache
 description: dCache Helm chart for Kubernetes
 home: https://dcache.org
