@@ -58,7 +58,7 @@ spec:
         configMap:
           name: {{ $.Release.Name }}-configmap
           items:
-          - key: "dcache-k8s.conf"
+          - key: "dcache-k8s-door"
             path: "dcache-k8s.conf"
       - name: init-scripts
         configMap:

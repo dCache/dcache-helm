@@ -11,7 +11,7 @@ data:
     chimerashell.db.password = ${chimera.db.password}
     chimerashell.db.name = ${chimera.db.name}
 
-    dcache.java.options.extra=-Dorg.dcache.net.localaddresses=dcache-door-svc
+    dcache.java.options.extra=-Dorg.dcache.net.localaddresses={{ $.Release.Name }}-door-svc
 
     [core]
     [core/poolmanager]
