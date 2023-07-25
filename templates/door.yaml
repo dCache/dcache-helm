@@ -20,16 +20,16 @@ spec:
         env:
           - name: AUTOCA_URL
             value: https://ci.dcache.org/ca
-        #readinessProbe:
-        #  tcpSocket:
-        #    port: 2049
-        #  initialDelaySeconds: 90
-        #  timeoutSeconds: 5
-        #livenessProbe:
-        #  tcpSocket:
-        #    port: 2049
-        #  initialDelaySeconds: 90
-        #  timeoutSeconds: 5
+        readinessProbe:
+          tcpSocket:
+            port: 2049
+          initialDelaySeconds: 90
+          timeoutSeconds: 5
+        livenessProbe:
+          tcpSocket:
+            port: 2049
+          initialDelaySeconds: 90
+          timeoutSeconds: 5
         volumeMounts:
         - name: dcache-config
           mountPath: /etc/dcache/dcache.conf
