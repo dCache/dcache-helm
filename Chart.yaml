@@ -6,6 +6,7 @@ appVersion: "9.1.0"
 name: dcache
 description: dCache Helm chart for Kubernetes
 home: https://dcache.org
+icon: https://raw.githubusercontent.com/dCache/dcache-helm/master/.assets/dcache-icon-220x235.png
 keywords:
   - storage
   - dcache
