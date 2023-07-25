@@ -1,0 +1,27 @@
+
+
+variables:
+  CHANNEL: test
+  PACKAGE: dcache-0.1.0.tgz
+
+stages:
+  - package
+  - upload
+
+package:
+  stage: package
+  image: devth/helm:latest
+  script:
+    - 'helm package .'
+  artifacts:
+    paths:
+      - "${PACKAGE}"
+    expire_in: 1 days
+  
+
+upload:
+  stage: upload
+  needs: ["package"]
+  image: curlimages/curl:latest
+  script:
+    - 'curl --request POST --user gitlab-ci-token:$CI_JOB_TOKEN --form "chart=@${PACKAGE}" "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/helm/api/${CHANNEL}/charts"'
