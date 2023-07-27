@@ -13,16 +13,16 @@ data:
 
     dcache.java.options.extra=-Dorg.dcache.net.localaddresses={{ $.Release.Name }}-door-svc
 
-    [core]
-    [core/poolmanager]
+    [${host.name}]
+    [${host.name}/poolmanager]
 
-    [core/pnfsmanager]
+    [${host.name}/pnfsmanager]
     chimera.db.url=jdbc:postgresql://${chimera.db.host}/${chimera.db.name}?ApplicationName=${pnfsmanager.cell.name}
 
-    [core/cleaner]
+    [${host.name}/cleaner-disk]
     chimera.db.url=jdbc:postgresql://${chimera.db.host}/${chimera.db.name}?ApplicationName=${cleaner.cell.name}
 
-    [core/nfs]
+    [${host.name}/nfs]
     chimera.db.url=jdbc:postgresql://${chimera.db.host}/${chimera.db.name}?ApplicationName=${nfs.cell.name}
     nfs.version=4.1
     nfs.domain=dcache.org
@@ -30,22 +30,22 @@ data:
     nfs.namespace-cache.size=8192
     nfs.export.file=/etc/dcache/exports
 
-    [core/gplazma]
+    [${host.name}/gplazma]
 
-    [core/xrootd]
+    [${host.name}/xrootd]
     xrootd.security.tls.mode=OFF
     xrootd.authz.write-paths = /
     xrootd.authz.anonymous-operations = FULL
 
-    [core/httpd]
+    [${host.name}/httpd]
 
-    [core/webdav]
+    [${host.name}/webdav]
     webdav.net.port=8080
     webdav.authz.anonymous-operations=FULL
     webdav.redirect.on-write=false
     webdav.redirect.on-read=true
 
-    [core/frontend]
+    [${host.name}/frontend]
     frontend.authn.protocol=http
     frontend.authz.anonymous-operations=FULL
 
