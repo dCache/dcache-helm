@@ -20,15 +20,15 @@ data:
     chimera.db.url=jdbc:postgresql://${chimera.db.host}/${chimera.db.name}?ApplicationName=${pnfsmanager.cell.name}
 
     [{{ $.Release.Name }}-door-svc/cleaner-disk]
-    chimera.db.url=jdbc:postgresql://${chimera.db.host}/${chimera.db.name}?ApplicationName=${cleaner.cell.name}
+    chimera.db.url=jdbc:postgresql://${chimera.db.host}/${chimera.db.name}?ApplicationName=${cleaner-disk.cell.name}
 
     [{{ $.Release.Name }}-door-svc/nfs]
-    chimera.db.url=jdbc:postgresql://${chimera.db.host}/${chimera.db.name}?ApplicationName=${nfs.cell.name}
+    chimera.db.url=jdbc:postgresql://${chimera.db.host}/${chimera.db.name}?ApplicationName=${cleaner-disk.cell.name}
     nfs.version=4.1
     nfs.domain=dcache.org
     nfs.enable.portmap=false
     nfs.namespace-cache.size=8192
-    nfs.export.file=/etc/dcache/exports
+    nfs.export.file=/opt/dcache/etc/exports
 
     [{{ $.Release.Name }}-door-svc/gplazma]
 
@@ -73,7 +73,7 @@ data:
 
   dcache.conf: |-
     dcache.enable.space-reservation = false
-    cleaner.destination.remove-notification = 
+    cleaner-disk.destination.remove-notification =
 
     chimera.db.user=dcache
     chimera.db.password=let-me-in
@@ -89,7 +89,7 @@ data:
     pool.enable.encrypted-transfers=false
 
   00-init.sh: |-
-    /opt/dcache/bin/chimera database update
+    /opt/dcache/bin/dcache database update
     /opt/dcache/bin/chimera mkdir /testbase || true
     /opt/dcache/bin/chimera chmod 0777 /testbase || true
     /opt/dcache/bin/chimera mkdir /data || true

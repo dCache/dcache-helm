@@ -33,11 +33,11 @@ spec:
           timeoutSeconds: 5
         volumeMounts:
         - name: dcache-config
-          mountPath: /etc/dcache/dcache.conf
+          mountPath: /opt/dcache/etc/dcache.conf
           subPath: dcache.conf
           readOnly: true
         - name: dcache-layout
-          mountPath: /etc/dcache/layouts/dcache-k8s.conf
+          mountPath: /opt/dcache/etc/layouts/dcache-k8s.conf
           subPath: dcache-k8s.conf
           readOnly: true
         - name: init-scripts
@@ -45,7 +45,7 @@ spec:
           subPath: 00-init.sh
           readOnly: true
         - name: exports
-          mountPath: /etc/dcache/exports
+          mountPath: /opt/dcache/etc/exports
           subPath: exports
           readOnly: true
       volumes:      

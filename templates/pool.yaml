@@ -24,11 +24,11 @@ spec:
             value: https://ci.dcache.org/ca
         volumeMounts:
         - name: dcache-config
-          mountPath: /etc/dcache/dcache.conf
+          mountPath: /opt/dcache/etc/dcache.conf
           subPath: dcache.conf
           readOnly: true
         - name: dcache-layout
-          mountPath: /etc/dcache/layouts/dcache-k8s.conf
+          mountPath: /opt/dcache/etc/layouts/dcache-k8s.conf
           subPath: dcache.conf
           readOnly: true
       volumes:
