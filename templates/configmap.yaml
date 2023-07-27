@@ -13,16 +13,16 @@ data:
 
     dcache.java.options.extra=-Dorg.dcache.net.localaddresses={{ $.Release.Name }}-door-svc
 
-    [${host.name}]
-    [${host.name}/poolmanager]
+    [{{ $.Release.Name }}-pool-{{ . }}-svc]
+    [{{ $.Release.Name }}-pool-{{ . }}-svc/poolmanager]
 
-    [${host.name}/pnfsmanager]
+    [{{ $.Release.Name }}-pool-{{ . }}-svc/pnfsmanager]
     chimera.db.url=jdbc:postgresql://${chimera.db.host}/${chimera.db.name}?ApplicationName=${pnfsmanager.cell.name}
 
-    [${host.name}/cleaner-disk]
+    [{{ $.Release.Name }}-pool-{{ . }}-svc/cleaner-disk]
     chimera.db.url=jdbc:postgresql://${chimera.db.host}/${chimera.db.name}?ApplicationName=${cleaner.cell.name}
 
-    [${host.name}/nfs]
+    [{{ $.Release.Name }}-pool-{{ . }}-svc/nfs]
     chimera.db.url=jdbc:postgresql://${chimera.db.host}/${chimera.db.name}?ApplicationName=${nfs.cell.name}
     nfs.version=4.1
     nfs.domain=dcache.org
@@ -30,22 +30,22 @@ data:
     nfs.namespace-cache.size=8192
     nfs.export.file=/etc/dcache/exports
 
-    [${host.name}/gplazma]
+    [{{ $.Release.Name }}-pool-{{ . }}-svc/gplazma]
 
-    [${host.name}/xrootd]
+    [{{ $.Release.Name }}-pool-{{ . }}-svc/xrootd]
     xrootd.security.tls.mode=OFF
     xrootd.authz.write-paths = /
     xrootd.authz.anonymous-operations = FULL
 
-    [${host.name}/httpd]
+    [{{ $.Release.Name }}-pool-{{ . }}-svc/httpd]
 
-    [${host.name}/webdav]
+    [{{ $.Release.Name }}-pool-{{ . }}-svc/webdav]
     webdav.net.port=8080
     webdav.authz.anonymous-operations=FULL
     webdav.redirect.on-write=false
     webdav.redirect.on-read=true
 
-    [${host.name}/frontend]
+    [{{ $.Release.Name }}-pool-{{ . }}-svc/frontend]
     frontend.authn.protocol=http
     frontend.authz.anonymous-operations=FULL
 
@@ -57,9 +57,9 @@ data:
     pool.mover.xrootd.security.tls.mode=OFF
     dcache.java.options.extra=-Dorg.dcache.net.localaddresses={{ $.Release.Name }}-pool-{{ . }}-svc
 
-    [${host.name}]
+    [{{ $.Release.Name }}-pool-{{ . }}-svc]
 
-    [${host.name}/pool]
+    [{{ $.Release.Name }}-pool-{{ . }}-svc/pool]
     pool.name=pool-{{ . }}
     pool.path=/mnt
     pool.mover.nfs.port.min={{ $.Values.mover.nfs }}
