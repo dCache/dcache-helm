@@ -31,6 +31,10 @@ spec:
           mountPath: /opt/dcache/etc/layouts/dcache-k8s.conf
           subPath: dcache.conf
           readOnly: true
+      initContainers:
+      - name: wait-for-core
+        image: busybox:1.28
+        command: ['sh', '-c', "until nc -z -v  {{ $.Release.Name }}-door-svc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local {{ $.Values.cell.tunnel }}; do echo waiting for core to start; sleep 2; done"]
       volumes:
       - name: dcache-config
         configMap:
