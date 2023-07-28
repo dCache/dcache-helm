@@ -61,7 +61,7 @@ data:
 
     [{{ $.Release.Name }}-pool-{{ . }}-svc/pool]
     pool.name=pool-{{ . }}
-    pool.path=/mnt
+    pool.path=/pool
     pool.mover.nfs.port.min={{ $.Values.mover.nfs }}
     pool.mover.nfs.port.max={{ $.Values.mover.nfs }}
     pool.mover.xrootd.port.min={{ $.Values.mover.xrootd }}
