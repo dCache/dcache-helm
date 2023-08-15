@@ -1,4 +1,4 @@
-{{- range .Values.dcache.pools }} 
+{{- range .Values.dcache.pools }}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -19,9 +19,6 @@ spec:
         image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag | default $.Chart.AppVersion }}"
         imagePullPolicy: {{ $.Values.image.pullPolicy }}
         command: ["/run.sh", "{{ $.Release.Name }}-pool-{{ . }}-svc"]
-        env:
-          - name: AUTOCA_URL
-            value: https://ci.dcache.org/ca
         volumeMounts:
         - name: dcache-config
           mountPath: /opt/dcache/etc/dcache.conf
@@ -31,11 +28,29 @@ spec:
           mountPath: /opt/dcache/etc/layouts/dcache-k8s.conf
           subPath: dcache.conf
           readOnly: true
+        - name: certs-store-{{ . }}
+          mountPath: /opt/dcache/etc/certs
+          readOnly: true
       initContainers:
-      - name: wait-for-core
-        image: busybox:1.28
-        command: ['sh', '-c', "until nc -z -v  {{ $.Release.Name }}-door-svc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local {{ $.Values.cell.tunnel }}; do echo waiting for core to start; sleep 2; done"]
+        - securityContext:
+            runAsUser: 0
+            runAsGroup: 0
+          name: init-host-certs
+          image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag | default $.Chart.AppVersion }}"
+          env:
+            - name: AUTOCA_URL
+              value: https://ci.dcache.org/ca
+          command: ['sh', '-c', "curl --silent https://raw.githubusercontent.com/kofemann/autoca/v1.0-py3/pyclient/autoca-client -o /tmp/autoca-client; chmod a+x /tmp/autoca-client; cd /opt/dcache/var/tmp/; /tmp/autoca-client -n ${AUTOCA_URL} {{ $.Release.Name }}-pool-{{ . }}-svc; chown dcache:dcache *.pem"]
+          volumeMounts:
+            - mountPath: /opt/dcache/var/tmp/
+              name: certs-store-{{ . }}
+        - name: wait-for-core
+          image: busybox:1.28
+          command: ['sh', '-c', "until nc -z -v  {{ $.Release.Name }}-door-svc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local {{ $.Values.cell.tunnel }}; do echo waiting for core to start; sleep 2; done"]
       volumes:
+      - name: certs-store-{{ . }}
+        persistentVolumeClaim:
+          claimName: {{ $.Release.Name }}-pool-{{ . }}-certs-store
       - name: dcache-config
         configMap:
           name: {{ $.Release.Name }}-configmap

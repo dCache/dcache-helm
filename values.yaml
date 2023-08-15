@@ -23,8 +23,10 @@ door:
     nfs: 2049
     xrootd: 1094
     webdav: 8080
+    webdavs: 8083
 
 mover:
   nfs: 32049
   xrootd: 31094
   http: 38080
+  https: 38083

@@ -1,0 +1,25 @@
+{{- range .Values.dcache.pools }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ $.Release.Name }}-pool-{{ . }}-certs-store
+spec:
+  resources:
+    requests:
+      storage: 1Mi
+  accessModes:
+    - ReadWriteOnce
+---
+{{ end }}
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ $.Release.Name }}-door-certs-store
+spec:
+  resources:
+    requests:
+      storage: 1Mi
+  accessModes:
+    - ReadWriteOnce
+

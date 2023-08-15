@@ -19,5 +19,8 @@ spec:
     - name: http-mover
       port: {{ $.Values.mover.http }}
       targetPort: {{ $.Values.mover.http }}
+    - name: https-mover
+      port: {{ $.Values.mover.https }}
+      targetPort: {{ $.Values.mover.https }}
 ---
 {{- end }}

@@ -40,8 +40,17 @@ data:
     [{{ $.Release.Name }}-door-svc/httpd]
 
     [{{ $.Release.Name }}-door-svc/webdav]
+    webdav.cell.name=webdav-plain
     webdav.net.port=8080
     webdav.authz.anonymous-operations=FULL
+    webdav.redirect.on-write=false
+    webdav.redirect.on-read=true
+
+    [{{ $.Release.Name }}-door-svc/webdav]
+    webdav.cell.name=webdav-tls
+    webdav.net.port=8083
+    webdav.authn.protocol=https
+    webdav.authz.anonymous-operations=READONLY
     webdav.redirect.on-write=false
     webdav.redirect.on-read=true
 
@@ -68,6 +77,9 @@ data:
     pool.mover.xrootd.port.max={{ $.Values.mover.xrootd }}
     pool.mover.http.port.min={{ $.Values.mover.http }}
     pool.mover.http.port.max={{ $.Values.mover.http }}
+    pool.mover.https.port.min={{ $.Values.mover.https }}
+    pool.mover.https.port.max={{ $.Values.mover.https }}
+
 
 {{- end }}
 
@@ -85,8 +97,10 @@ data:
     dcache.enable.kafka = true
     dcache.layout=dcache-k8s
     dcache.authn.vomsdir=/mnt
-    webdav.redirect.allow-https=false
-    pool.enable.encrypted-transfers=false
+    #webdav.redirect.allow-https=false
+    #pool.enable.encrypted-transfers=false
+    dcache.authn.hostcert.key=/opt/dcache/etc/certs/hostkey.pem
+    dcache.authn.hostcert.cert=/opt/dcache/etc/certs/hostcert.pem
 
   00-init.sh: |-
     export JAVA=/usr/bin/java

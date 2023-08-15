@@ -18,9 +18,6 @@ spec:
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         command: ["/run.sh", "{{ $.Release.Name }}-door-svc" ]
-        env:
-          - name: AUTOCA_URL
-            value: https://ci.dcache.org/ca
         readinessProbe:
           tcpSocket:
             port: 2049
@@ -48,7 +45,26 @@ spec:
           mountPath: /opt/dcache/etc/exports
           subPath: exports
           readOnly: true
-      volumes:      
+        - name: certs
+          mountPath: /opt/dcache/etc/certs
+          readOnly: true
+      initContainers:
+        - securityContext:
+            runAsUser: 0
+            runAsGroup: 0
+          name: init-host-certs
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          env:
+            - name: AUTOCA_URL
+              value: https://ci.dcache.org/ca
+          command: ['sh', '-c', "curl --silent https://raw.githubusercontent.com/kofemann/autoca/v1.0-py3/pyclient/autoca-client -o /tmp/autoca-client; chmod a+x /tmp/autoca-client; cd /opt/dcache/var/tmp/; /tmp/autoca-client -n ${AUTOCA_URL} {{ $.Release.Name }}-door-svc; chown dcache:dcache *.pem"]
+          volumeMounts:
+            - mountPath: /opt/dcache/var/tmp/
+              name: certs
+      volumes:
+      - name: certs
+        persistentVolumeClaim:
+          claimName: {{ $.Release.Name }}-door-certs-store
       - name: dcache-config
         configMap:
           name: {{ $.Release.Name }}-configmap

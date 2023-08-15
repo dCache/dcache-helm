@@ -17,6 +17,9 @@ spec:
     - name: webdav-door
       port: {{ $.Values.door.ports.webdav }}
       targetPort: 8080
+    - name: webdavs-door
+      port: {{ $.Values.door.ports.webdavs }}
+      targetPort: 8083
     - name: cell-tunnel
       port: {{ $.Values.cell.tunnel }}
       targetPort: 11111   
