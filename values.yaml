@@ -22,6 +22,7 @@ door:
   ports:
     nfs: 2049
     xrootd: 1094
+    xrootdg: 1095
     webdav: 8080
     webdavs: 8083
 

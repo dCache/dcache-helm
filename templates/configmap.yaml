@@ -58,6 +58,14 @@ data:
     frontend.authn.protocol=http
     frontend.authz.anonymous-operations=FULL
 
+    [{{ $.Release.Name }}-door-svc/xrootd]
+    xrootd.cell.name = xrootd-gsi
+    ## REVISIT: do we need to specify 'authz:none' here?
+    xrootd.plugins = gplazma:gsi,authz:none
+    xrootd.net.port = 1095
+    xrootd.authz.write-paths = /
+    xrootd.authz.read-paths = /
+
 {{- range .Values.dcache.pools }}
   config-pool-{{ . }}: |-
     dcache.broker.scheme = satellite
