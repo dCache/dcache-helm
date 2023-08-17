@@ -45,6 +45,22 @@ spec:
           mountPath: /opt/dcache/etc/exports
           subPath: exports
           readOnly: true
+        - name: gplazma-conf
+          mountPath: /opt/dcache/etc/gplazma.conf
+          subPath: gplazma.conf
+          readOnly: true
+        - name: grid-mapfile
+          mountPath: /opt/dcache/etc/grid-mapfile
+          subPath: grid-mapfile
+          readOnly: true
+        - name: vorolemap
+          mountPath: /opt/dcache/etc/grid-vorolemap
+          subPath: grid-vorolemap
+          readOnly: true
+        - name: storage-authzdb
+          mountPath: /opt/dcache/etc/storage-authzdb
+          subPath: storage-authzdb
+          readOnly: true
         - name: certs
           mountPath: /opt/dcache/etc/certs
           readOnly: true
@@ -89,3 +105,27 @@ spec:
           items:
           - key: "export"
             path: "exports"
+      - name: gplazma-conf
+        configMap:
+          name: {{ $.Release.Name }}-configmap
+          items:
+          - key: "gplazma.conf"
+            path: "gplazma.conf"
+      - name: grid-mapfile
+        configMap:
+          name: {{ $.Release.Name }}-configmap
+          items:
+          - key: "grid-mapfile"
+            path: "grid-mapfile"
+      - name: vorolemap
+        configMap:
+          name: {{ $.Release.Name }}-configmap
+          items:
+          - key: "grid-vorolemap"
+            path: "grid-vorolemap"
+      - name: storage-authzdb
+        configMap:
+          name: {{ $.Release.Name }}-configmap
+          items:
+          - key: "storage-authzdb"
+            path: "storage-authzdb"

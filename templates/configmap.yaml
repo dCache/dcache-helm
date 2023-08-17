@@ -120,3 +120,26 @@ data:
 
   export: |-
     /data *(rw,no_root_squash)
+
+  gplazma.conf: |-
+    auth    optional    x509
+    auth    optional    voms
+    auth    sufficient  htpasswd
+    map     optional    vorolemap
+    map     optional    gridmap
+    map     requisite   authzdb
+    session requisite   roles
+    session requisite   authzdb
+
+  grid-mapfile: |-
+    "/C=DE/ST=Hamburg/O=dCache.ORG/CN=Kermit the frog" kermit
+
+  grid-vorolemap: |-
+    "*" "/desy" desyuser
+
+  storage-authzdb: |-
+    version 2.1
+
+    authorize admin    read-write    0    0 / / /
+    authorize desyuser read-write 1000 2000 / / /
+    authorize kermit   read-write 1000 1000 / / /
