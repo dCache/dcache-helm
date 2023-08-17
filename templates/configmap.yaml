@@ -106,7 +106,6 @@ data:
     dcache.kafka.bootstrap-servers=billing-kafka:9092
     dcache.enable.kafka = true
     dcache.layout=dcache-k8s
-    dcache.authn.vomsdir=/mnt
     #webdav.redirect.allow-https=false
     #pool.enable.encrypted-transfers=false
     dcache.authn.hostcert.key=/opt/dcache/etc/certs/hostkey.pem
@@ -126,7 +125,7 @@ data:
   gplazma.conf: |-
     auth    optional    x509
     auth    optional    voms
-    auth    sufficient  htpasswd
+    #auth    sufficient  htpasswd
     map     optional    vorolemap
     map     optional    gridmap
     map     requisite   authzdb
