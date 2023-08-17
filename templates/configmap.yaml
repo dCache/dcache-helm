@@ -30,6 +30,8 @@ data:
     nfs.namespace-cache.size=8192
     nfs.export.file=/opt/dcache/etc/exports
 
+    [{{ $.Release.Name }}-door-svc/billing]
+
     [{{ $.Release.Name }}-door-svc/gplazma]
 
     [{{ $.Release.Name }}-door-svc/xrootd]

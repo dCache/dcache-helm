@@ -25,4 +25,4 @@ spec:
       targetPort: 8083
     - name: cell-tunnel
       port: {{ $.Values.cell.tunnel }}
-      targetPort: 11111   
+      targetPort: 11111
