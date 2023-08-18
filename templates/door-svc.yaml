@@ -23,6 +23,9 @@ spec:
     - name: webdavs-door
       port: {{ $.Values.door.ports.webdavs }}
       targetPort: 8083
+    - name: dcapg-door
+      port: {{ $.Values.door.ports.dcapg }}
+      targetPort: 22128
     - name: cell-tunnel
       port: {{ $.Values.cell.tunnel }}
       targetPort: 11111

@@ -68,6 +68,8 @@ data:
     xrootd.authz.write-paths = /
     xrootd.authz.read-paths = /
 
+    [{{ $.Release.Name }}-door-svc/dcap]
+    dcap.authn.protocol = gsi
 {{- range .Values.dcache.pools }}
   config-pool-{{ . }}: |-
     dcache.broker.scheme = satellite

@@ -21,6 +21,7 @@ cell:
 door:
   ports:
     nfs: 2049
+    dcapg: 22128
     xrootd: 1094
     xrootdg: 1095
     webdav: 8080
