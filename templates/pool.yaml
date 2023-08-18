@@ -39,20 +39,33 @@ spec:
           subPath: dcache.conf
           readOnly: true
         - name: certs-store-{{ . }}
-          mountPath: /opt/dcache/etc/certs
+          mountPath: /etc/grid-security
           readOnly: true
       initContainers:
         - securityContext:
             runAsUser: 0
             runAsGroup: 0
           name: init-host-certs
-          image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag | default $.Chart.AppVersion }}"
+          image: "centos:7"
           env:
             - name: AUTOCA_URL
               value: https://ci.dcache.org/ca
-          command: ['sh', '-c', "curl --silent https://raw.githubusercontent.com/kofemann/autoca/v1.0-py3/pyclient/autoca-client -o /tmp/autoca-client; chmod a+x /tmp/autoca-client; cd /opt/dcache/var/tmp/; /tmp/autoca-client -n ${AUTOCA_URL} {{ $.Release.Name }}-pool-{{ . }}-svc; chown dcache:dcache *.pem"]
+          command:
+            - sh
+            - -c
+          args:
+            - |
+              yum install -y https://www.desy.de/~tigran/ca_dCacheORG-3.0-6.noarch.rpm https://linuxsoft.cern.ch/wlcg/centos7/x86_64/desy-voms-all-1.0.0-1.noarch.rpm https://repository.egi.eu/sw/production/cas/1/current/RPMS/ca_USERTrustRSACertificationAuthority-1.122-1.noarch.rpm https://repository.egi.eu/sw/production/cas/1/current/RPMS/ca_ResearchandEducationTrustRSARootCA-1.122-1.noarch.rpm https://repository.egi.eu/sw/production/cas/1/current/RPMS/ca_GEANTeScienceSSLCA4-1.122-1.noarch.rpm
+              yum install -y python epel-release
+              yum install -y fetch-crl
+              curl --silent https://raw.githubusercontent.com/kofemann/autoca/v1.0-py2/pyclient/autoca-client -o /tmp/autoca-client;
+              chmod a+x /tmp/autoca-client;
+              cd /etc/grid-security/;
+              /tmp/autoca-client -n ${AUTOCA_URL} {{ $.Release.Name }}-pool-{{ . }}-svc;
+              chown 994:1000 *.pem;
+              /usr/sbin/fetch-crl;
           volumeMounts:
-            - mountPath: /opt/dcache/var/tmp/
+            - mountPath: /etc/grid-security
               name: certs-store-{{ . }}
         - name: wait-for-core
           image: busybox:1.28

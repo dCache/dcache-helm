@@ -110,8 +110,6 @@ data:
     dcache.layout=dcache-k8s
     #webdav.redirect.allow-https=false
     #pool.enable.encrypted-transfers=false
-    dcache.authn.hostcert.key=/opt/dcache/etc/certs/hostkey.pem
-    dcache.authn.hostcert.cert=/opt/dcache/etc/certs/hostcert.pem
 
   00-init.sh: |-
     export JAVA=/usr/bin/java
@@ -120,7 +118,6 @@ data:
     /opt/dcache/bin/chimera chmod 0777 /testbase || true
     /opt/dcache/bin/chimera mkdir /data || true
     /opt/dcache/bin/chimera chmod 0777 /data || true
-    /usr/sbin/fetch-crl
 
   export: |-
     /data *(rw,no_root_squash)
