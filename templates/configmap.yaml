@@ -120,6 +120,7 @@ data:
     /opt/dcache/bin/chimera chmod 0777 /testbase || true
     /opt/dcache/bin/chimera mkdir /data || true
     /opt/dcache/bin/chimera chmod 0777 /data || true
+    /usr/sbin/fetch-crl
 
   export: |-
     /data *(rw,no_root_squash)
