@@ -91,7 +91,7 @@ spec:
               curl --silent https://raw.githubusercontent.com/kofemann/autoca/v1.0-py2/pyclient/autoca-client -o /tmp/autoca-client;
               chmod a+x /tmp/autoca-client;
               cd /etc/grid-security/;
-              /tmp/autoca-client -n ${AUTOCA_URL} {{ $.Release.Name }}-door-svc;
+              /tmp/autoca-client -n ${AUTOCA_URL} {{ $.Release.Name }}-door-svc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local;
               chown 994:1000 *.pem;
               /usr/sbin/fetch-crl;
           volumeMounts:
