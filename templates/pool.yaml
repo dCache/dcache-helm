@@ -22,12 +22,12 @@ spec:
         readinessProbe:
           tcpSocket:
             port: {{ $.Values.mover.nfs }}
-          initialDelaySeconds: 90
+          initialDelaySeconds: 20
           timeoutSeconds: 5
         livenessProbe:
           tcpSocket:
             port: {{ $.Values.mover.nfs }}
-          initialDelaySeconds: 90
+          initialDelaySeconds: 20
           timeoutSeconds: 5
         volumeMounts:
         - name: dcache-config
