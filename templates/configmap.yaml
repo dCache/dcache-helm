@@ -33,6 +33,9 @@ data:
     [{{ $.Release.Name }}-door-svc/billing]
 
     [{{ $.Release.Name }}-door-svc/gplazma]
+    gplazma.gridmap.file=/opt/dcache/etc/grid-mapfile
+    gplazma.authzdb.file=/opt/dcache/etc/storage-authzdb
+    gplazma.vorolemap.file=/opt/dcache/etc/grid-vorolemap
 
     [{{ $.Release.Name }}-door-svc/xrootd]
     xrootd.security.tls.mode=OFF
