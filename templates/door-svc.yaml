@@ -26,6 +26,15 @@ spec:
     - name: dcapg-door
       port: {{ $.Values.door.ports.dcapg }}
       targetPort: 22128
+    - name: dcap-door
+      port: {{ $.Values.door.ports.dcap }}
+      targetPort: 22125
+    - name: gridftp-door
+      port: {{ $.Values.door.ports.gridftp }}
+      targetPort: 2811
+    - name: srm-door
+      port: {{ $.Values.door.ports.srm }}
+      targetPort: 8443
     - name: cell-tunnel
       port: {{ $.Values.cell.tunnel }}
       targetPort: 11111

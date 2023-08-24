@@ -72,6 +72,8 @@ data:
     xrootd.authz.read-paths = /
 
     [{{ $.Release.Name }}-door-svc/dcap]
+
+    [{{ $.Release.Name }}-door-svc/dcap]
     dcap.authn.protocol = gsi
 {{- range .Values.dcache.pools }}
   config-pool-{{ . }}: |-

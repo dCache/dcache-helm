@@ -22,10 +22,13 @@ door:
   ports:
     nfs: 2049
     dcapg: 22128
+    dcap: 22125
     xrootd: 1094
     xrootdg: 1095
     webdav: 8080
     webdavs: 8083
+    gridftp: 2811
+    srm: 8443
 
 mover:
   nfs: 32049
