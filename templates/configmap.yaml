@@ -121,6 +121,8 @@ data:
     /opt/dcache/bin/chimera chmod 0777 /testbase || true
     /opt/dcache/bin/chimera mkdir /data || true
     /opt/dcache/bin/chimera chmod 0777 /data || true
+    /opt/dcache/bin/chimera mkdir /data/g2 || true
+    /opt/dcache/bin/chimera chown 1000:1000 /data/g2 || true
 
   export: |-
     /data *(rw,no_root_squash)
