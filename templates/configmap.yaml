@@ -113,10 +113,15 @@ data:
     chimera.db.host=chimera-postgresql
     chimera.db.name=chimera
 
+    srmmanager.db.name=dcache
+    srmmanager.db.host=srm-postgresql
+    srmmanager.db.password=let-me-in
+
     dcache.zookeeper.connection=cells-zookeeper:2181
     dcache.kafka.bootstrap-servers=billing-kafka:9092
     dcache.enable.kafka = true
     dcache.layout=dcache-k8s
+    dcache.enable.overwrite = true
     #webdav.redirect.allow-https=false
     #pool.enable.encrypted-transfers=false
 
