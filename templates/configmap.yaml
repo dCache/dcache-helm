@@ -75,6 +75,10 @@ data:
 
     [{{ $.Release.Name }}-door-svc/dcap]
     dcap.authn.protocol = gsi
+
+    [{{ $.Release.Name }}-door-svc/ftp]
+    ftp.authn.protocol = gsi
+
 {{- range .Values.dcache.pools }}
   config-pool-{{ . }}: |-
     dcache.broker.scheme = satellite
@@ -115,6 +119,9 @@ data:
     dcache.layout=dcache-k8s
     #webdav.redirect.allow-https=false
     #pool.enable.encrypted-transfers=false
+
+    dcache.net.wan.port.min={{ $.Values.mover.wan_range_min }}
+    dcache.net.wan.port.max={{ $.Values.mover.wan_range_max }}
 
   00-init.sh: |-
     export JAVA=/usr/bin/java

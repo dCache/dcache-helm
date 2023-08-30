@@ -22,5 +22,12 @@ spec:
     - name: https-mover
       port: {{ $.Values.mover.https }}
       targetPort: {{ $.Values.mover.https }}
+    {{ $range_start := ( $.Values.mover.wan_range_min | int) }}
+    {{ $range_stop := ( $.Values.mover.wan_range_max | int) }}
+    {{- range $port_index, $port := untilStep $range_start $range_stop 1 }}
+    - name: wan-port-{{ $port_index }}
+      port: {{ $port }}
+      targetPort: {{ $port }}
+    {{- end }}
 ---
 {{- end }}

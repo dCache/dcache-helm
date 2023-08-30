@@ -35,3 +35,5 @@ mover:
   xrootd: 31094
   http: 38080
   https: 38083
+  wan_range_min: 28000
+  wan_range_max: 28050
