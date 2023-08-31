@@ -47,7 +47,7 @@ data:
     [{{ $.Release.Name }}-door-svc/webdav]
     webdav.cell.name=webdav-plain
     webdav.net.port=8080
-    webdav.authz.anonymous-operations=FULL
+    webdav.authz.anonymous-operations=READONLY
     webdav.redirect.on-write=false
     webdav.redirect.on-read=true
 
@@ -80,6 +80,15 @@ data:
     ftp.authn.protocol = gsi
     ftp.loginbroker.address={{ $.Release.Name }}-door-svc.{{ $.Release.Namespace }}.svc.cluster.local
 
+    [{{ $.Release.Name }}-door-svc/transfermanagers]
+    transfermanagers.limits.transfer-time = 8200
+    transfermanagers.limits.transfer-time.unit=SECONDS
+
+    [{{ $.Release.Name }}-door-svc/pinmanager]
+
+    [{{ $.Release.Name }}-door-svc/srm]
+    srm.loginbroker.address={{ $.Release.Name }}-door-svc.{{ $.Release.Namespace }}.svc.cluster.local
+    [{{ $.Release.Name }}-door-svc/srmmanager]
 
 {{- range .Values.dcache.pools }}
   config-pool-{{ . }}: |-
@@ -110,14 +119,12 @@ data:
     dcache.enable.space-reservation = false
     cleaner-disk.destination.remove-notification =
 
-    chimera.db.user=dcache
-    chimera.db.password=let-me-in
-    chimera.db.host=chimera-postgresql
+    dcache.db.host=chimera-postgresql
+    dcache.db.userr=dcache
+    dcache.db.password=let-me-in
     chimera.db.name=chimera
-
-    srmmanager.db.name=dcache
-    srmmanager.db.host=srm-postgresql
-    srmmanager.db.password=let-me-in
+    srmmanager.db.name=chimera
+    pinmanager.db.name=chimera
 
     dcache.zookeeper.connection=cells-zookeeper:2181
     dcache.kafka.bootstrap-servers=billing-kafka:9092
