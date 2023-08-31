@@ -11,7 +11,7 @@ data:
     chimerashell.db.password = ${chimera.db.password}
     chimerashell.db.name = ${chimera.db.name}
 
-    dcache.java.options.extra=-Dorg.dcache.net.localaddresses={{ $.Release.Name }}-door-svc
+    dcache.java.options.extra=-Dorg.dcache.net.localaddresses={{ $.Release.Name }}-door-svc.{{ $.Release.Namespace }}.svc.cluster.local
 
     [{{ $.Release.Name }}-door-svc]
     [{{ $.Release.Name }}-door-svc/poolmanager]
@@ -78,6 +78,8 @@ data:
 
     [{{ $.Release.Name }}-door-svc/ftp]
     ftp.authn.protocol = gsi
+    ftp.loginbroker.address={{ $.Release.Name }}-door-svc.{{ $.Release.Namespace }}.svc.cluster.local
+
 
 {{- range .Values.dcache.pools }}
   config-pool-{{ . }}: |-
@@ -85,7 +87,7 @@ data:
 
     pool.tags=hostname=${host.name}
     pool.mover.xrootd.security.tls.mode=OFF
-    dcache.java.options.extra=-Dorg.dcache.net.localaddresses={{ $.Release.Name }}-pool-{{ . }}-svc
+    dcache.java.options.extra=-Dorg.dcache.net.localaddresses={{ $.Release.Name }}-pool-{{ . }}-svc.{{ $.Release.Namespace }}.svc.cluster.local
 
     [{{ $.Release.Name }}-pool-{{ . }}-svc]
 
