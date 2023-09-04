@@ -90,6 +90,10 @@ data:
     srm.loginbroker.address={{ $.Release.Name }}-door-svc.{{ $.Release.Namespace }}.svc.cluster.local
     [{{ $.Release.Name }}-door-svc/srmmanager]
 
+
+    [{{ $.Release.Name }}-door-svc/spacemanager]
+    spacemanager.authz.link-group-file-name=/opt/dcache/etc/linkgroupauthz.conf
+
 {{- range .Values.dcache.pools }}
   config-pool-{{ . }}: |-
     dcache.broker.scheme = satellite
@@ -119,12 +123,14 @@ data:
     dcache.enable.space-reservation = false
     cleaner-disk.destination.remove-notification =
 
+    # single db for all services
     dcache.db.host=chimera-postgresql
     dcache.db.userr=dcache
     dcache.db.password=let-me-in
     chimera.db.name=chimera
     srmmanager.db.name=chimera
     pinmanager.db.name=chimera
+    spacemanager.db.name = chimera
 
     dcache.zookeeper.connection=cells-zookeeper:2181
     dcache.kafka.bootstrap-servers=billing-kafka:9092
@@ -172,3 +178,7 @@ data:
     authorize admin    read-write    0    0 / / /
     authorize desyuser read-write 1000 2000 / / /
     authorize kermit   read-write 1000 1000 / / /
+
+  linkgroupauthz: |-
+    LinkGroup default-linkgroup
+    /desy

@@ -61,6 +61,10 @@ spec:
           mountPath: /opt/dcache/etc/storage-authzdb
           subPath: storage-authzdb
           readOnly: true
+        - name: linkgroupauthz
+          mountPath: /opt/dcache/etc/linkgroupauthz.conf
+          subPath: linkgroupauthz.conf
+          readOnly: true
         - name: certs
           mountPath: /etc/grid-security
           readOnly: true
@@ -149,3 +153,9 @@ spec:
           items:
           - key: "storage-authzdb"
             path: "storage-authzdb"
+      - name: linkgroupauthz
+        configMap:
+          name: {{ $.Release.Name }}-configmap
+          items:
+          - key: "linkgroupauthz"
+            path: "linkgroupauthz.conf"
