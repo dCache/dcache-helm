@@ -69,35 +69,8 @@ spec:
           mountPath: /etc/grid-security
           readOnly: true
       initContainers:
-        - securityContext:
-            runAsUser: 0
-            runAsGroup: 0
-          name: init-host-certs
-          image: "centos:7"
-          env:
-            - name: AUTOCA_URL
-              value: https://ci.dcache.org/ca
-          command:
-            - sh
-            - -c
-          args:
-            - |
-              yum -q install -y openssl libtool-ltdl glibmm24 epel-release;
-              yum -q install -y fetch-crl;
-              rpm -i https://www.desy.de/~tigran/ca_dCacheORG-3.0-6.noarch.rpm;
-              rpm -i https://linuxsoft.cern.ch/wlcg/centos7/x86_64/desy-voms-all-1.0.0-1.noarch.rpm;
-              rpm -i https://repository.egi.eu/sw/production/cas/1/current/RPMS/ca_ResearchandEducationTrustRSARootCA-1.122-1.noarch.rpm;
-              rpm -i https://repository.egi.eu/sw/production/cas/1/current/RPMS/ca_GEANTTCSAuthenticationRSACA4B-1.122-1.noarch.rpm;
-              rpm -i https://repository.egi.eu/sw/production/cas/1/current/RPMS/ca_USERTrustRSACertificationAuthority-1.122-1.noarch.rpm;
-              rpm -i https://repository.egi.eu/sw/production/cas/1/current/RPMS/ca_GEANTeScienceSSLCA4-1.122-1.noarch.rpm;
-              rpm -i https://repository.egi.eu/sw/production/cas/1/current/RPMS/ca_USERTrustECCCertificationAuthority-1.122-1.noarch.rpm;
-              rpm -i https://repository.egi.eu/sw/production/cas/1/current/RPMS/ca_GEANTeScienceSSLECCCA4-1.122-1.noarch.rpm;
-              curl --silent https://raw.githubusercontent.com/kofemann/autoca/v1.0-py2/pyclient/autoca-client -o /tmp/autoca-client;
-              chmod a+x /tmp/autoca-client;
-              cd /etc/grid-security/;
-              /tmp/autoca-client -n ${AUTOCA_URL} {{ $.Release.Name }}-door-svc.{{ $.Release.Namespace }}.svc.cluster.local;
-              chown 994:1000 *.pem;
-              /usr/sbin/fetch-crl;
+      {{ $host := print $.Release.Name "-door-svc."  $.Release.Namespace ".svc.cluster.local" -}}
+      {{ include "dcache.certs.init" $host }}
           volumeMounts:
             - mountPath: /etc/grid-security
               name: certs
