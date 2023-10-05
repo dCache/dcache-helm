@@ -61,6 +61,10 @@ spec:
           mountPath: /opt/dcache/etc/storage-authzdb
           subPath: storage-authzdb
           readOnly: true
+        - name: htpasswd
+          mountPath: /opt/dcache/etc/htpasswd
+          subPath: htpasswd
+          readOnly: true
         - name: linkgroupauthz
           mountPath: /opt/dcache/etc/linkgroupauthz.conf
           subPath: linkgroupauthz.conf
@@ -126,6 +130,12 @@ spec:
           items:
           - key: "storage-authzdb"
             path: "storage-authzdb"
+      - name: htpasswd
+        configMap:
+          name: {{ $.Release.Name }}-configmap
+          items:
+          - key: "htpasswd"
+            path: "htpasswd"
       - name: linkgroupauthz
         configMap:
           name: {{ $.Release.Name }}-configmap

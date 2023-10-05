@@ -36,6 +36,7 @@ data:
     gplazma.gridmap.file=/opt/dcache/etc/grid-mapfile
     gplazma.authzdb.file=/opt/dcache/etc/storage-authzdb
     gplazma.vorolemap.file=/opt/dcache/etc/grid-vorolemap
+    gplazma.htpasswd.file=/opt/dcache/etc/htpasswd
 
     [{{ $.Release.Name }}-door-svc/xrootd]
     xrootd.security.tls.mode=OFF
@@ -159,7 +160,7 @@ data:
   gplazma.conf: |-
     auth    optional    x509
     auth    optional    voms
-    #auth    sufficient  htpasswd
+    auth    sufficient  htpasswd
     map     optional    vorolemap
     map     optional    gridmap
     map     requisite   authzdb
@@ -182,3 +183,6 @@ data:
   linkgroupauthz: |-
     LinkGroup default-linkgroup
     /desy
+
+  htpasswd: |-
+    admin:$apr1$nq7.vQxE$tvmghVXGplwv/SNpNYGiC1
