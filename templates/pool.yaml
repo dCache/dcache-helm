@@ -49,7 +49,7 @@ spec:
               name: certs-store-{{ . }}
         - name: wait-for-core
           image: busybox:1.28
-          command: ['sh', '-c', "until nc -z -v  {{ $.Release.Name }}-door-svc.{{ $.Release.Namespace }}.svc.cluster.local {{ $.Values.cell.tunnel }}; do echo waiting for core to start; sleep 2; done"]
+          command: ['sh', '-c', "until nc -z -v  {{ $.Release.Name }}-core-0.{{ $.Release.Namespace }}.svc.cluster.local {{ $.Values.cell.tunnel }}; do echo waiting for core to start; sleep 2; done"]
       volumes:
       - name: certs-store-{{ . }}
         persistentVolumeClaim:

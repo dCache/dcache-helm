@@ -3,8 +3,29 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-configmap
 data:
-  dcache-k8s-door: |-
+
+{{- range $core_index, $core := until ($.Values.dcache.numberOfCores | int) }}
+  dcache-core-{{ $core }}: |-
     dcache.broker.scheme = core
+    dcache.java.options.extra=-Dorg.dcache.net.localaddresses={{ $.Release.Name }}-core-{{ $core }}.{{ $.Release.Namespace }}.svc.cluster.local
+
+    chimerashell.db.host = ${chimera.db.host}
+    chimerashell.db.user = ${chimera.db.user}
+    chimerashell.db.password = ${chimera.db.password}
+    chimerashell.db.name = ${chimera.db.name}
+
+    [{{ $.Release.Name }}-core-{{ $core }}]
+    [{{ $.Release.Name }}-core-{{ $core }}/poolmanager]
+
+    [{{ $.Release.Name }}-core-{{ $core }}/pnfsmanager]
+    chimera.db.url=jdbc:postgresql://${chimera.db.host}/${chimera.db.name}?ApplicationName=${pnfsmanager.cell.name}
+
+    [{{ $.Release.Name }}-core-{{ $core }}/cleaner-disk]
+    chimera.db.url=jdbc:postgresql://${chimera.db.host}/${chimera.db.name}?ApplicationName=${cleaner-disk.cell.name}
+
+{{- end }}
+
+  dcache-k8s-door: |-
 
     chimerashell.db.host = ${chimera.db.host}
     chimerashell.db.user = ${chimera.db.user}
@@ -14,14 +35,6 @@ data:
     dcache.java.options.extra=-Dorg.dcache.net.localaddresses={{ $.Release.Name }}-door-svc.{{ $.Release.Namespace }}.svc.cluster.local
 
     [{{ $.Release.Name }}-door-svc]
-    [{{ $.Release.Name }}-door-svc/poolmanager]
-
-    [{{ $.Release.Name }}-door-svc/pnfsmanager]
-    chimera.db.url=jdbc:postgresql://${chimera.db.host}/${chimera.db.name}?ApplicationName=${pnfsmanager.cell.name}
-
-    [{{ $.Release.Name }}-door-svc/cleaner-disk]
-    chimera.db.url=jdbc:postgresql://${chimera.db.host}/${chimera.db.name}?ApplicationName=${cleaner-disk.cell.name}
-
     [{{ $.Release.Name }}-door-svc/nfs]
     chimera.db.url=jdbc:postgresql://${chimera.db.host}/${chimera.db.name}?ApplicationName=${cleaner-disk.cell.name}
     nfs.version=4.1

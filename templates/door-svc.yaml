@@ -35,9 +35,6 @@ spec:
     - name: srm-door
       port: {{ $.Values.door.ports.srm }}
       targetPort: 8443
-    - name: cell-tunnel
-      port: {{ $.Values.cell.tunnel }}
-      targetPort: 11111
     {{ $range_start := ( $.Values.mover.wan_range_min | int) }}
     {{ $range_stop := ( $.Values.mover.wan_range_max | int) }}
     {{- range $port_index, $port := untilStep $range_start $range_stop 1 }}
