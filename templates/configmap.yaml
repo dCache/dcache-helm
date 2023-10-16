@@ -126,7 +126,7 @@ data:
 
     # single db for all services
     dcache.db.host=chimera-postgresql
-    dcache.db.userr=dcache
+    dcache.db.user=dcache
     dcache.db.password=let-me-in
     chimera.db.name=chimera
     srmmanager.db.name=chimera
