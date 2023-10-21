@@ -8,36 +8,71 @@ spec:
   selector:
     app: door
   ports:
+
+    {{ if .Values.services.nfs.enabled }}
     - name: nfs-door
-      port: {{ $.Values.door.ports.nfs }}
+      port: {{ $.Values.services.nfs.port }}
       targetPort: 2049
-    - name: xroot-door
-      port: {{ $.Values.door.ports.xrootd }}
-      targetPort: 1094
-    - name: xroot-door-gsi
-      port: {{ $.Values.door.ports.xrootdg }}
-      targetPort: 1095
-    - name: webdav-door
-      port: {{ $.Values.door.ports.webdav }}
-      targetPort: 8080
-    - name: webdavs-door
-      port: {{ $.Values.door.ports.webdavs }}
-      targetPort: 8083
-    - name: dcapg-door
-      port: {{ $.Values.door.ports.dcapg }}
-      targetPort: 22128
+    {{- end }}
+
+    {{ if .Values.services.dcap.enabled }}
     - name: dcap-door
-      port: {{ $.Values.door.ports.dcap }}
+      port: {{ $.Values.services.dcap.port }}
       targetPort: 22125
-    - name: gridftp-door
-      port: {{ $.Values.door.ports.gridftp }}
+    {{- end }}
+
+    {{ if .Values.services.dcapg.enabled }}
+    - name: dcapg-door
+      port: {{ $.Values.services.dcapg.port }}
+      targetPort: 22128
+    {{- end }}
+
+    {{ if .Values.services.xrootd.enabled }}
+    - name: xrootd-door
+      port: {{ $.Values.services.xrootd.port }}
+      targetPort: 1094
+    {{- end }}
+
+    {{ if .Values.services.xrootdg.enabled }}
+    - name: xrootd-door-gsi
+      port: {{ $.Values.services.xrootdg.port }}
+      targetPort: 1095
+    {{- end }}
+
+    {{ if .Values.services.webdav.enabled }}
+    - name: webdav-door
+      port: {{ $.Values.services.webdav.port }}
+      targetPort: 8080
+    {{- end }}
+
+    {{ if .Values.services.webdavs.enabled }}
+    - name: webdavs-door
+      port: {{ $.Values.services.webdavs.port }}
+      targetPort: 8083
+    {{- end }}
+
+    {{ if .Values.services.gridftp.enabled }}
+    - name: ftp-door
+      port: {{ $.Values.services.gridftp.port }}
       targetPort: 2811
+    {{- end }}
+
+    {{ if .Values.services.srm.enabled }}
     - name: srm-door
-      port: {{ $.Values.door.ports.srm }}
+      port: {{ $.Values.services.srm.port }}
       targetPort: 8443
+    {{- end }}
+
+    {{ if .Values.services.sshAdmin.enabled }}
+    - name: admin-door
+      port: {{ $.Values.services.sshAdmin.port }}
+      targetPort: 22224
+    {{- end }}
+
     - name: cell-tunnel
       port: {{ $.Values.cell.tunnel }}
       targetPort: 11111
+
     {{ $range_start := ( $.Values.mover.wan_range_min | int) }}
     {{ $range_stop := ( $.Values.mover.wan_range_max | int) }}
     {{- range $port_index, $port := untilStep $range_start $range_stop 1 }}

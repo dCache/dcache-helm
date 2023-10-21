@@ -18,21 +18,51 @@ dcache:
 cell:
   tunnel: 11111
 
-door:
-  ports:
-    nfs: 2049
-    dcapg: 22128
-    dcap: 22125
-    xrootd: 1094
-    xrootdg: 1095
-    webdav: 8080
-    webdavs: 8083
-    gridftp: 2811
-    srm: 8443
 
-sshAdmin:
-  enabled: true
-  port: 22224
+#
+# dCache doors/services
+#
+services:
+
+  nfs:
+    enabled: true
+    port: 2049
+
+  dcap:
+    enabled: true
+    port: 22125
+
+  dcapg:
+    enabled: true
+    port: 22128
+
+  xrootd:
+    enabled: true
+    port: 1094
+
+  xrootdg:
+    enabled: true
+    port: 1095
+
+  webdav:
+    enabled: true
+    port: 8080
+
+  webdavs:
+    enabled: true
+    port: 8083
+
+  srm:
+    enabled: true
+    port: 8443
+
+  gridftp:
+    enabled: true
+    port: 2811
+
+  sshAdmin:
+    enabled: true
+    port: 22224
 
 
 mover:

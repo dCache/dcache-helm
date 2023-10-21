@@ -16,15 +16,8 @@ data:
     [door-svc/cleaner-disk]
     chimera.db.url=jdbc:postgresql://${chimera.db.host}/${chimera.db.name}?ApplicationName=${cleaner-disk.cell.name}
 
-    [door-svc/nfs]
-    chimera.db.url=jdbc:postgresql://${chimera.db.host}/${chimera.db.name}?ApplicationName=${cleaner-disk.cell.name}
-    nfs.version=4.1
-    nfs.domain=dcache.org
-    nfs.enable.portmap=false
-    nfs.namespace-cache.size=8192
-    nfs.export.file=/opt/dcache/etc/exports
-
     [door-svc/billing]
+    [door-svc/httpd]
 
     [door-svc/gplazma]
     gplazma.gridmap.file=/opt/dcache/etc/grid-mapfile
@@ -32,20 +25,30 @@ data:
     gplazma.vorolemap.file=/opt/dcache/etc/grid-vorolemap
     gplazma.htpasswd.file=/opt/dcache/etc/htpasswd
 
-    [door-svc/xrootd]
-    xrootd.security.tls.mode=OFF
-    xrootd.authz.write-paths = /
-    xrootd.authz.anonymous-operations = FULL
+    [door-svc/frontend]
+    frontend.authn.protocol=http
+    frontend.authz.anonymous-operations=FULL
 
-    [door-svc/httpd]
+  {{ if .Values.services.nfs.enabled }}
+    [door-svc/nfs]
+    chimera.db.url=jdbc:postgresql://${chimera.db.host}/${chimera.db.name}?ApplicationName=${cleaner-disk.cell.name}
+    nfs.version=4.1
+    nfs.domain=dcache.org
+    nfs.enable.portmap=false
+    nfs.namespace-cache.size=8192
+    nfs.export.file=/opt/dcache/etc/exports
+  {{- end}}
 
+{{ if .Values.services.webdav.enabled }}
     [door-svc/webdav]
     webdav.cell.name=webdav-plain
     webdav.net.port=8080
     webdav.authz.anonymous-operations=READONLY
     webdav.redirect.on-write=false
     webdav.redirect.on-read=true
+{{- end }}
 
+{{ if .Values.services.webdavs.enabled }}
     [door-svc/webdav]
     webdav.cell.name=webdav-tls
     webdav.net.port=8083
@@ -53,11 +56,16 @@ data:
     webdav.authz.anonymous-operations=READONLY
     webdav.redirect.on-write=false
     webdav.redirect.on-read=true
+{{- end }}
 
-    [door-svc/frontend]
-    frontend.authn.protocol=http
-    frontend.authz.anonymous-operations=FULL
+{{ if .Values.services.xrootd.enabled }}
+    [door-svc/xrootd]
+    xrootd.security.tls.mode=OFF
+    xrootd.authz.write-paths = /
+    xrootd.authz.anonymous-operations = FULL
+{{- end }}
 
+{{ if .Values.services.xrootdg.enabled }}
     [door-svc/xrootd]
     xrootd.cell.name = xrootd-gsi
     ## REVISIT: do we need to specify 'authz:none' here?
@@ -65,15 +73,25 @@ data:
     xrootd.net.port = 1095
     xrootd.authz.write-paths = /
     xrootd.authz.read-paths = /
+{{- end }}
 
+{{ if .Values.services.dcap.enabled }}
     [door-svc/dcap]
+{{- end }}
 
+{{ if .Values.services.dcapg.enabled }}
     [door-svc/dcap]
     dcap.authn.protocol = gsi
+{{- end }}
 
+{{ if .Values.services.gridftp.enabled }}
     [door-svc/ftp]
     ftp.authn.protocol = gsi
     ftp.loginbroker.address={{ $.Release.Name }}-door-svc.{{ $.Release.Namespace }}.svc.cluster.local
+{{- end }}
+
+
+{{- if .Values.services.srm.enabled }}
 
     [door-svc/transfermanagers]
     transfermanagers.limits.transfer-time = 8200
@@ -88,8 +106,9 @@ data:
 
     [door-svc/spacemanager]
     spacemanager.authz.link-group-file-name=/opt/dcache/etc/linkgroupauthz.conf
+{{- end }}
 
-{{- if .Values.sshAdmin.enabled }}
+{{- if .Values.services.sshAdmin.enabled }}
     [door-svc/admin]
     admin.paths.host-keys=/etc/grid-security/ssh_host_rsa_key
 {{- end }}
