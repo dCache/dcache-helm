@@ -18,7 +18,7 @@ spec:
       - name: pool
         image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag | default $.Chart.AppVersion }}"
         imagePullPolicy: {{ $.Values.image.pullPolicy }}
-        command: ["/run.sh", "{{ $.Release.Name }}-pool-{{ . }}-svc"]
+        command: ["/run.sh", "pool-{{ . }}-svc"]
         readinessProbe:
           tcpSocket:
             port: {{ $.Values.mover.nfs }}

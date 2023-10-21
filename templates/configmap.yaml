@@ -13,16 +13,16 @@ data:
 
     dcache.java.options.extra=-Dorg.dcache.net.localaddresses={{ $.Release.Name }}-door-svc.{{ $.Release.Namespace }}.svc.cluster.local
 
-    [{{ $.Release.Name }}-door-svc]
-    [{{ $.Release.Name }}-door-svc/poolmanager]
+    [door-svc]
+    [door-svc/poolmanager]
 
-    [{{ $.Release.Name }}-door-svc/pnfsmanager]
+    [door-svc/pnfsmanager]
     chimera.db.url=jdbc:postgresql://${chimera.db.host}/${chimera.db.name}?ApplicationName=${pnfsmanager.cell.name}
 
-    [{{ $.Release.Name }}-door-svc/cleaner-disk]
+    [door-svc/cleaner-disk]
     chimera.db.url=jdbc:postgresql://${chimera.db.host}/${chimera.db.name}?ApplicationName=${cleaner-disk.cell.name}
 
-    [{{ $.Release.Name }}-door-svc/nfs]
+    [door-svc/nfs]
     chimera.db.url=jdbc:postgresql://${chimera.db.host}/${chimera.db.name}?ApplicationName=${cleaner-disk.cell.name}
     nfs.version=4.1
     nfs.domain=dcache.org
@@ -30,29 +30,29 @@ data:
     nfs.namespace-cache.size=8192
     nfs.export.file=/opt/dcache/etc/exports
 
-    [{{ $.Release.Name }}-door-svc/billing]
+    [door-svc/billing]
 
-    [{{ $.Release.Name }}-door-svc/gplazma]
+    [door-svc/gplazma]
     gplazma.gridmap.file=/opt/dcache/etc/grid-mapfile
     gplazma.authzdb.file=/opt/dcache/etc/storage-authzdb
     gplazma.vorolemap.file=/opt/dcache/etc/grid-vorolemap
     gplazma.htpasswd.file=/opt/dcache/etc/htpasswd
 
-    [{{ $.Release.Name }}-door-svc/xrootd]
+    [door-svc/xrootd]
     xrootd.security.tls.mode=OFF
     xrootd.authz.write-paths = /
     xrootd.authz.anonymous-operations = FULL
 
-    [{{ $.Release.Name }}-door-svc/httpd]
+    [door-svc/httpd]
 
-    [{{ $.Release.Name }}-door-svc/webdav]
+    [door-svc/webdav]
     webdav.cell.name=webdav-plain
     webdav.net.port=8080
     webdav.authz.anonymous-operations=READONLY
     webdav.redirect.on-write=false
     webdav.redirect.on-read=true
 
-    [{{ $.Release.Name }}-door-svc/webdav]
+    [door-svc/webdav]
     webdav.cell.name=webdav-tls
     webdav.net.port=8083
     webdav.authn.protocol=https
@@ -60,11 +60,11 @@ data:
     webdav.redirect.on-write=false
     webdav.redirect.on-read=true
 
-    [{{ $.Release.Name }}-door-svc/frontend]
+    [door-svc/frontend]
     frontend.authn.protocol=http
     frontend.authz.anonymous-operations=FULL
 
-    [{{ $.Release.Name }}-door-svc/xrootd]
+    [door-svc/xrootd]
     xrootd.cell.name = xrootd-gsi
     ## REVISIT: do we need to specify 'authz:none' here?
     xrootd.plugins = gplazma:gsi,authz:none
@@ -72,27 +72,27 @@ data:
     xrootd.authz.write-paths = /
     xrootd.authz.read-paths = /
 
-    [{{ $.Release.Name }}-door-svc/dcap]
+    [door-svc/dcap]
 
-    [{{ $.Release.Name }}-door-svc/dcap]
+    [door-svc/dcap]
     dcap.authn.protocol = gsi
 
-    [{{ $.Release.Name }}-door-svc/ftp]
+    [door-svc/ftp]
     ftp.authn.protocol = gsi
     ftp.loginbroker.address={{ $.Release.Name }}-door-svc.{{ $.Release.Namespace }}.svc.cluster.local
 
-    [{{ $.Release.Name }}-door-svc/transfermanagers]
+    [door-svc/transfermanagers]
     transfermanagers.limits.transfer-time = 8200
     transfermanagers.limits.transfer-time.unit=SECONDS
 
-    [{{ $.Release.Name }}-door-svc/pinmanager]
+    [door-svc/pinmanager]
 
-    [{{ $.Release.Name }}-door-svc/srm]
+    [door-svc/srm]
     srm.loginbroker.address={{ $.Release.Name }}-door-svc.{{ $.Release.Namespace }}.svc.cluster.local
-    [{{ $.Release.Name }}-door-svc/srmmanager]
+    [door-svc/srmmanager]
 
 
-    [{{ $.Release.Name }}-door-svc/spacemanager]
+    [door-svc/spacemanager]
     spacemanager.authz.link-group-file-name=/opt/dcache/etc/linkgroupauthz.conf
 
 {{- range .Values.dcache.pools }}
@@ -103,9 +103,9 @@ data:
     pool.mover.xrootd.security.tls.mode=OFF
     dcache.java.options.extra=-Dorg.dcache.net.localaddresses={{ $.Release.Name }}-pool-{{ . }}-svc.{{ $.Release.Namespace }}.svc.cluster.local
 
-    [{{ $.Release.Name }}-pool-{{ . }}-svc]
+    [pool-{{ . }}-svc]
 
-    [{{ $.Release.Name }}-pool-{{ . }}-svc/pool]
+    [pool-{{ . }}-svc/pool]
     pool.name=pool-{{ . }}
     pool.path=/pool
     pool.mover.nfs.port.min={{ $.Values.mover.nfs }}
