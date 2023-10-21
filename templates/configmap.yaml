@@ -4,16 +4,10 @@ metadata:
   name: {{ .Release.Name }}-configmap
 data:
   dcache-k8s-door: |-
+    [door-svc]
     dcache.broker.scheme = core
-
-    chimerashell.db.host = ${chimera.db.host}
-    chimerashell.db.user = ${chimera.db.user}
-    chimerashell.db.password = ${chimera.db.password}
-    chimerashell.db.name = ${chimera.db.name}
-
     dcache.java.options.extra=-Dorg.dcache.net.localaddresses={{ $.Release.Name }}-door-svc.{{ $.Release.Namespace }}.svc.cluster.local
 
-    [door-svc]
     [door-svc/poolmanager]
 
     [door-svc/pnfsmanager]
@@ -96,14 +90,11 @@ data:
     spacemanager.authz.link-group-file-name=/opt/dcache/etc/linkgroupauthz.conf
 
 {{- range .Values.dcache.pools }}
-  config-pool-{{ . }}: |-
-    dcache.broker.scheme = satellite
 
+    [pool-{{ . }}-svc]
     pool.tags=hostname=${host.name}
     pool.mover.xrootd.security.tls.mode=OFF
     dcache.java.options.extra=-Dorg.dcache.net.localaddresses={{ $.Release.Name }}-pool-{{ . }}-svc.{{ $.Release.Namespace }}.svc.cluster.local
-
-    [pool-{{ . }}-svc]
 
     [pool-{{ . }}-svc/pool]
     pool.name=pool-{{ . }}
@@ -132,6 +123,11 @@ data:
     srmmanager.db.name=chimera
     pinmanager.db.name=chimera
     spacemanager.db.name = chimera
+
+    chimerashell.db.host = ${chimera.db.host}
+    chimerashell.db.user = ${chimera.db.user}
+    chimerashell.db.password = ${chimera.db.password}
+    chimerashell.db.name = ${chimera.db.name}
 
     dcache.zookeeper.connection=cells-zookeeper:2181
     dcache.kafka.bootstrap-servers=billing-kafka:9092

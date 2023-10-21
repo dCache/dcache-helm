@@ -29,14 +29,7 @@ spec:
           initialDelaySeconds: 20
           timeoutSeconds: 5
         volumeMounts:
-        - name: dcache-config
-          mountPath: /opt/dcache/etc/dcache.conf
-          subPath: dcache.conf
-          readOnly: true
-        - name: dcache-layout
-          mountPath: /opt/dcache/etc/layouts/dcache-k8s.conf
-          subPath: dcache-k8s.conf
-          readOnly: true
+        {{ include "dcache.conf.mounts" . | indent 8 }}
         - name: init-scripts
           mountPath: /dcache.init.d/00-init.sh
           subPath: 00-init.sh
@@ -79,21 +72,10 @@ spec:
             - mountPath: /etc/grid-security
               name: certs
       volumes:
+      {{ include "dcache.conf.volume" . | indent 6 }}
       - name: certs
         persistentVolumeClaim:
           claimName: {{ $.Release.Name }}-door-certs-store
-      - name: dcache-config
-        configMap:
-          name: {{ $.Release.Name }}-configmap
-          items:
-          - key: "dcache.conf"
-            path: "dcache.conf"
-      - name: dcache-layout
-        configMap:
-          name: {{ $.Release.Name }}-configmap
-          items:
-          - key: "dcache-k8s-door"
-            path: "dcache-k8s.conf"
       - name: init-scripts
         configMap:
           name: {{ $.Release.Name }}-configmap
