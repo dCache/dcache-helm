@@ -30,6 +30,11 @@ door:
     gridftp: 2811
     srm: 8443
 
+sshAdmin:
+  enabled: true
+  port: 22224
+
+
 mover:
   nfs: 32049
   xrootd: 31094

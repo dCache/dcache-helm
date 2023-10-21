@@ -89,6 +89,12 @@ data:
     [door-svc/spacemanager]
     spacemanager.authz.link-group-file-name=/opt/dcache/etc/linkgroupauthz.conf
 
+{{- if .Values.sshAdmin.enabled }}
+    [door-svc/admin]
+    admin.paths.host-keys=/etc/grid-security/ssh_host_rsa_key
+{{- end }}
+
+
 {{- range .Values.dcache.pools }}
 
     [pool-{{ . }}-svc]

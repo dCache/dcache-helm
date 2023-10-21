@@ -71,6 +71,14 @@ spec:
           volumeMounts:
             - mountPath: /etc/grid-security
               name: certs
+      {{- if .Values.sshAdmin.enabled }}
+        - name: gen-ssh-key
+          image: kroniak/ssh-client
+          command: ['sh', '-c', "ssh-keygen -t rsa -b 2048 -N '' -f /etc/grid-security/ssh_host_rsa_key; chown 994:1000 /etc/grid-security/ssh_host_rsa_key"]
+          volumeMounts:
+            - mountPath: /etc/grid-security
+              name: certs
+      {{- end }}
       volumes:
       {{ include "dcache.conf.volume" . | indent 6 }}
       - name: certs
