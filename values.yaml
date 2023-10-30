@@ -18,6 +18,11 @@ dcache:
 cell:
   tunnel: 11111
 
+#
+# Zookeeper to use
+#
+zookeeper:
+  servers: cells-zookeeper:2181
 
 #
 # dCache doors/services

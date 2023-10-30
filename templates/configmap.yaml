@@ -154,7 +154,7 @@ data:
     chimerashell.db.password = ${chimera.db.password}
     chimerashell.db.name = ${chimera.db.name}
 
-    dcache.zookeeper.connection=cells-zookeeper:2181
+    dcache.zookeeper.connection={{ $.Values.zookeeper.servers }}
     dcache.kafka.bootstrap-servers=billing-kafka:9092
     dcache.enable.kafka = true
     dcache.layout=dcache-k8s
