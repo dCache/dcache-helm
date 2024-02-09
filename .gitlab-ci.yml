@@ -10,7 +10,7 @@ stages:
 
 package:
   stage: package
-  image: devth/helm:latest
+  image: dtzar/helm-kubectl:latest
   script:
     - 'helm package .'
   artifacts:
