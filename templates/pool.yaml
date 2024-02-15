@@ -27,7 +27,7 @@ spec:
         livenessProbe:
           tcpSocket:
             port: {{ $.Values.mover.nfs }}
-          initialDelaySeconds: 20
+          initialDelaySeconds: 90
           timeoutSeconds: 5
         volumeMounts:
         {{ include "dcache.conf.mounts" . | indent 8 }}

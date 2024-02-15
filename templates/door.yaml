@@ -26,7 +26,7 @@ spec:
         livenessProbe:
           tcpSocket:
             port: 2049
-          initialDelaySeconds: 20
+          initialDelaySeconds: 90
           timeoutSeconds: 5
         volumeMounts:
         {{ include "dcache.conf.mounts" . | indent 8 }}
