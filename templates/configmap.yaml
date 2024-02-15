@@ -207,3 +207,5 @@ data:
 
   htpasswd: |-
     admin:$apr1$nq7.vQxE$tvmghVXGplwv/SNpNYGiC1
+
+immutable: true
