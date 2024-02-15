@@ -8,7 +8,7 @@ Add CA certs and generate host certificate
             runAsUser: 0
             runAsGroup: 0
           name: init-host-certs
-          image: "almalinux:9"
+          image: "dcache/ci-init-cert:latest"
           env:
             - name: AUTOCA_URL
               value: https://ci.dcache.org/ca
@@ -16,26 +16,7 @@ Add CA certs and generate host certificate
             - sh
             - -c
           args:
-            - |
-              dnf -y -q install openssl libtool-ltdl glibmm24 epel-release;
-              dnf -y install fetch-crl;
-              rpm -i https://www.desy.de/~tigran/ca_dCacheORG-3.0-6.noarch.rpm;
-              rpm -i https://linuxsoft.cern.ch/wlcg/centos7/x86_64/desy-voms-all-1.0.0-1.noarch.rpm;
-
-              curl https://repository.egi.eu/sw/production/cas/1/current/repo-files/egi-trustanchors.repo -o /etc/yum.repos.d/egi-trustanchors.repo
-              dnf -y install ca_USERTrustRSACertificationAuthority \
-                ca_ResearchandEducationTrustRSARootCA \
-                ca_GEANTeScienceSSLCA4 \
-                ca_USERTrustECCCertificationAuthority \
-                ca_GEANTeScienceSSLECCCA4 \
-                ca_GEANTTCSAuthenticationRSACA4B;
-
-              curl --silent https://raw.githubusercontent.com/kofemann/autoca/v1.0-py3/pyclient/autoca-client -o /tmp/autoca-client;
-              chmod a+x /tmp/autoca-client;
-              cd /etc/grid-security/;
-              python3 /tmp/autoca-client -n ${AUTOCA_URL} {{ . }};
-              chown 994:1000 *.pem;
-              /usr/sbin/fetch-crl;
+            - /run.sh  ${AUTOCA_URL} {{ . }}
 
 {{- end }}
 
