@@ -69,6 +69,10 @@ services:
     enabled: true
     port: 22224
 
+  frontend:
+    enabled: true
+    port: 3880
+
 
 mover:
   nfs: 32049

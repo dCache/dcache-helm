@@ -69,6 +69,12 @@ spec:
       targetPort: 22224
     {{- end }}
 
+    {{ if .Values.services.frontend.enabled }}
+    - name: frontend-door
+      port: {{ $.Values.services.frontend.port }}
+      targetPort: 3880
+    {{- end }}
+
     - name: cell-tunnel
       port: {{ $.Values.cell.tunnel }}
       targetPort: 11111
