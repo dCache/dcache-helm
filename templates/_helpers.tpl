@@ -51,3 +51,37 @@ dCache conf and layout config map
     - key: "dcache-k8s-door"
       path: "dcache-k8s.conf"
 {{- end }}
+
+{{/*
+Readiness probe
+*/}}
+{{- define "dcache.readiness.probe" }}
+readinessProbe:
+  initialDelaySeconds: {{.Values.readinessProbe.initialDelaySeconds }}
+  timeoutSeconds:      {{.Values.readinessProbe.timeoutSeconds }}
+  failureThreshold:    {{ .Values.readinessProbe.failureThreshold }}
+  successThreshold:    {{ .Values.readinessProbe.successThreshold }}
+{{- end }}
+
+{{/*
+Liveness probe
+*/}}
+{{- define "dcache.liveness.probe" }}
+livenessProbe:
+  initialDelaySeconds: {{.Values.livenessProbe.initialDelaySeconds }}
+  timeoutSeconds:      {{.Values.livenessProbe.timeoutSeconds }}
+  failureThreshold:    {{ .Values.livenessProbe.failureThreshold }}
+  successThreshold:    {{ .Values.livenessProbe.successThreshold }}
+{{- end }}
+
+
+{{/*
+Startup probe
+*/}}
+{{- define "dcache.startup.probe" }}
+startupProbe:
+  initialDelaySeconds: {{.Values.startupProbe.initialDelaySeconds }}
+  timeoutSeconds:      {{.Values.startupProbe.timeoutSeconds }}
+  failureThreshold:    {{ .Values.startupProbe.failureThreshold }}
+  successThreshold:    {{ .Values.startupProbe.successThreshold }}
+{{- end }}

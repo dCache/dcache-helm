@@ -24,6 +24,36 @@ cell:
 zookeeper:
   servers: cells-zookeeper:2181
 
+
+# liveness, readiness and startup probes
+
+# dCache containers' liveness probe.
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+
+# dCache containers' readiness probe.
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+
+# dCache containers' startup probe.
+startupProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 1
+  failureThreshold: 15
+  successThreshold: 1
+
 #
 # dCache doors/services
 #

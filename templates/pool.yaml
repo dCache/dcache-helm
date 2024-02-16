@@ -19,16 +19,21 @@ spec:
         image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag | default $.Chart.AppVersion }}"
         imagePullPolicy: {{ $.Values.image.pullPolicy }}
         command: ["/run.sh", "pool-{{ . }}-svc"]
-        readinessProbe:
+        {{- if $.Values.readinessProbe.enabled}}
+        {{ include "dcache.readiness.probe" $ | indent 8 }}
           tcpSocket:
             port: {{ $.Values.mover.nfs }}
-          initialDelaySeconds: 20
-          timeoutSeconds: 5
-        livenessProbe:
+        {{- end}}
+        {{- if $.Values.livenessProbe.enabled}}
+        {{ include "dcache.liveness.probe" $ | indent 8 }}
           tcpSocket:
             port: {{ $.Values.mover.nfs }}
-          initialDelaySeconds: 90
-          timeoutSeconds: 5
+        {{- end}}
+        {{- if $.Values.startupProbe.enabled}}
+        {{ include "dcache.startup.probe" $ | indent 8 }}
+          tcpSocket:
+            port: {{ $.Values.mover.nfs }}
+        {{- end}}
         volumeMounts:
         {{ include "dcache.conf.mounts" . | indent 8 }}
         - name: certs-store-{{ . }}
