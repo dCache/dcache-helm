@@ -177,6 +177,8 @@ data:
     /opt/dcache/bin/chimera chmod 0777 /data || true
     /opt/dcache/bin/chimera mkdir /data/g2 || true
     /opt/dcache/bin/chimera chown 1000:1000 /data/g2 || true
+    /opt/dcache/bin/chimera mkdir /data/s2 || true
+    /opt/dcache/bin/chimera chown 1000:1000 /data/s2 || true
 
   export: |-
     /data *(rw,no_root_squash)
@@ -210,5 +212,39 @@ data:
 
   htpasswd: |-
     admin:$apr1$nq7.vQxE$tvmghVXGplwv/SNpNYGiC1
+
+  poolmanager.conf: |-
+    psu create unit -store *@*
+    psu create unit -net 0.0.0.0/0.0.0.0
+    psu create unit -net ::/0
+    psu create unit -protocol */*
+
+    psu create ugroup any-protocol
+    psu addto ugroup any-protocol */*
+
+    psu create ugroup any-store
+    psu addto ugroup any-store *@*
+
+    psu create ugroup world-net
+    psu addto ugroup world-net 0.0.0.0/0.0.0.0
+    psu addto ugroup world-net ::/0
+
+    psu create pgroup default
+
+    psu create link default-link any-protocol any-store world-net
+    psu set link default-link -readpref=10 -writepref=10 -cachepref=10 -p2ppref=-1
+    psu addto link default-link default
+
+    psu create link default-outside-linkgroup any-protocol any-store world-net
+    psu set link default-outside-linkgroup -readpref=10 -writepref=10 -cachepref=10 -p2ppref=10
+    psu addto link default-outside-linkgroup default
+
+    psu create linkGroup default-linkgroup
+    psu set linkGroup custodialAllowed default-linkgroup true
+    psu set linkGroup replicaAllowed default-linkgroup true
+    psu set linkGroup nearlineAllowed default-linkgroup true
+    psu set linkGroup outputAllowed default-linkgroup true
+    psu set linkGroup onlineAllowed default-linkgroup true
+    psu addto linkGroup default-linkgroup default-link
 
 immutable: true

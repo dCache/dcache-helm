@@ -67,6 +67,10 @@ spec:
           mountPath: /opt/dcache/etc/linkgroupauthz.conf
           subPath: linkgroupauthz.conf
           readOnly: true
+        - name: poolmanager-conf
+          mountPath: /opt/dcache/var/config/poolmanager.conf
+          subPath: poolmanager.conf
+          readOnly: true
         - name: certs
           mountPath: /etc/grid-security
           readOnly: true
@@ -137,3 +141,9 @@ spec:
           items:
           - key: "linkgroupauthz"
             path: "linkgroupauthz.conf"
+      - name: poolmanager-conf
+        configMap:
+          name: {{ $.Release.Name }}-configmap
+          items:
+          - key: "poolmanager.conf"
+            path: "poolmanager.conf"
