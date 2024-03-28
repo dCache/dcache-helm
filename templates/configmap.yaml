@@ -140,7 +140,13 @@ data:
 {{- end }}
 
   dcache.conf: |-
+{{- if .Values.services.srm.enabled }}
+    dcache.enable.space-reservation = true
+    spacemanager.enable.unreserved-uploads-to-linkgroups = true
+{{- else }}
     dcache.enable.space-reservation = false
+{{- end }}
+
     cleaner-disk.destination.remove-notification =
 
     # single db for all services
