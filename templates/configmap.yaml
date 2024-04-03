@@ -91,6 +91,7 @@ data:
     [door-svc/ftp]
     ftp.authn.protocol = gsi
     ftp.loginbroker.address={{ $.Release.Name }}-door-svc.{{ $.Release.Namespace }}.svc.cluster.local
+    ftp.enable.space-reservation=false
 {{- end }}
 
 
