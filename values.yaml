@@ -10,6 +10,8 @@ image:
 
 
 dcache:
+  door:
+    enabled: true
   pools:
     - a
     - b

@@ -4,6 +4,7 @@ metadata:
   name: {{ .Release.Name }}-configmap
 data:
   dcache-k8s-door: |-
+{{ if .Values.dcache.door.enabled }}
     [door-svc]
     dcache.broker.scheme = core
     dcache.java.options.extra=-Dorg.dcache.net.localaddresses={{ $.Release.Name }}-door-svc.{{ $.Release.Namespace }}.svc.cluster.local
@@ -116,7 +117,7 @@ data:
     [door-svc/admin]
     admin.paths.host-keys=/etc/grid-security/ssh_host_rsa_key
 {{- end }}
-
+{{ end }}
 
 {{- range .Values.dcache.pools }}
 

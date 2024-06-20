@@ -49,9 +49,11 @@ spec:
           volumeMounts:
             - mountPath: /etc/grid-security
               name: certs-store-{{ . }}
+      {{- if $.Values.dcache.door.enabled }}
         - name: wait-for-core
           image: busybox:1.28
           command: ['sh', '-c', "until nc -z -v  {{ $.Release.Name }}-door-svc.{{ $.Release.Namespace }}.svc.cluster.local {{ $.Values.cell.tunnel }}; do echo waiting for core to start; sleep 2; done"]
+      {{ end }}
       volumes:
       {{ include "dcache.conf.volume" $ | indent 6 }}
       - name: certs-store-{{ . }}

@@ -1,3 +1,6 @@
+{{- if .Values.dcache.door.enabled }}
+
+
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -147,3 +150,5 @@ spec:
           items:
           - key: "poolmanager.conf"
             path: "poolmanager.conf"
+
+{{ end }}
