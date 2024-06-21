@@ -24,6 +24,11 @@ helm  install --set image.tag=10.0.3 \
     --set "dcache.pools={d,f}"  my-release dcache/dcache
 ```
 
+## Accessing admin interface
+
+```bash
+kubectl run --rm -ti admin-ssh --image kroniak/ssh-client -- ssh -p 22224 -l admin <my-release>-door-svc
+```
 
 ## Acknowledgement
 
