@@ -49,7 +49,7 @@ readinessProbe:
 
 # dCache containers' startup probe.
 startupProbe:
-  enabled: false
+  enabled: true
   initialDelaySeconds: 30
   periodSeconds: 10
   timeoutSeconds: 1
