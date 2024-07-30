@@ -179,6 +179,8 @@ data:
   00-init.sh: |-
     export JAVA=/usr/bin/java
     /opt/dcache/bin/dcache database update
+    /opt/dcache/bin/chimera writetag / OSMTemplate "StoreName test"
+    /opt/dcache/bin/chimera writetag / sGroup "default"
     /opt/dcache/bin/chimera mkdir /testbase || true
     /opt/dcache/bin/chimera chmod 0777 /testbase || true
     /opt/dcache/bin/chimera mkdir /data || true
@@ -187,6 +189,12 @@ data:
     /opt/dcache/bin/chimera chown 1000:1000 /data/g2 || true
     /opt/dcache/bin/chimera mkdir /data/s2 || true
     /opt/dcache/bin/chimera chown 1000:1000 /data/s2 || true
+  {{- range .Values.dcache.pools }}
+    /opt/dcache/bin/chimera mkdir /data/pool-{{.}} || true
+    /opt/dcache/bin/chimera chown 1000:1000 /data/pool-{{.}} || true
+    /opt/dcache/bin/chimera writetag /data/pool-{{.}} sGroup "pool-{{.}}"
+  {{- end }}
+
 
   export: |-
     /data *(rw,no_root_squash)
@@ -254,5 +262,21 @@ data:
     psu set linkGroup outputAllowed default-linkgroup true
     psu set linkGroup onlineAllowed default-linkgroup true
     psu addto linkGroup default-linkgroup default-link
+
+    # named pool, unit, unit group, links. The link's write pref is higher than the write perd of default-link
+  {{- range .Values.dcache.pools }}
+
+    psu create pool pool-{{ . }}
+
+    psu create unit -store test:pool-{{ . }}@osm
+    psu create ugroup pool-{{ . }}-store
+    psu addto ugroup pool-{{ . }}-store test:pool-{{ . }}@osm
+    psu addto ugroup any-store test:pool-{{ . }}@osm
+
+    psu create link pool-{{ . }}-link any-protocol pool-{{ . }}-store world-net
+    psu set link pool-{{ . }}-link -readpref=10 -writepref=20 -cachepref=20 -p2ppref=10
+    psu addto link pool-{{ . }}-link pool-{{ . }}
+  {{- end }}
+
 
 immutable: true
