@@ -28,9 +28,18 @@ data:
 
   {{ if .Values.services.frontend.enabled }}
     [door-svc/frontend]
+    frontend.cell.name = Frontend
     frontend.authn.protocol=http
     frontend.net.port=3880
-    frontend.authz.anonymous-operations=FULL
+    frontend.authz.anonymous-operations=READONLY
+  {{- end }}
+
+  {{ if .Values.services.frontends.enabled }}
+    [door-svc/frontend]
+    frontend.cell.name = Frontend-S
+    frontend.authn.protocol=https
+    frontend.net.port=3881
+    frontend.authz.anonymous-operations=READONLY
   {{- end }}
 
   {{ if .Values.services.nfs.enabled }}

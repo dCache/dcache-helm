@@ -105,6 +105,9 @@ services:
     enabled: true
     port: 3880
 
+  frontends:
+    enabled: true
+    port: 3881
 
 mover:
   nfs: 32049
