@@ -30,6 +30,13 @@ helm  install --set image.tag=10.0.3 \
 kubectl run --rm -ti admin-ssh --image kroniak/ssh-client -- ssh -p 22224 -l admin <my-release>-door-svc
 ```
 
+## Accessing Frontend
+
+```bash
+kubectl port-forward svc/<my-release>-door-svc 3880:3880
+```
+
+
 ## Acknowledgement
 
 This project is based on work done by Michael Schuh, DESY-IT
