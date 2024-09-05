@@ -43,6 +43,12 @@ spec:
           readOnly: true
         - name: pool-data
           mountPath: /pool
+        {{- if $.Values.dcache.hsm.enabled}}
+        - name: pool-hsm-config
+          mountPath: /pool/setup
+          subPath: setup
+          readOnly: true
+        {{- end}}
       initContainers:
       {{ $host := print $.Release.Name  "-pool-" . "-svc." $.Release.Namespace ".svc.cluster.local" -}}
       {{ include "dcache.certs.init" $host }}
@@ -59,6 +65,14 @@ spec:
       - name: certs-store-{{ . }}
         persistentVolumeClaim:
           claimName: {{ $.Release.Name }}-pool-{{ . }}-certs-store
+      {{- if $.Values.dcache.hsm.enabled}}
+      - name: pool-hsm-config
+        configMap:
+          name: {{ $.Release.Name }}-configmap
+          items:
+          - key: "pool-setup"
+            path: "setup"
+      {{- end}}
   volumeClaimTemplates:
   - metadata:
       name: pool-data

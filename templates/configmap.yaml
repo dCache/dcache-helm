@@ -238,6 +238,12 @@ data:
   htpasswd: |-
     admin:$apr1$nq7.vQxE$tvmghVXGplwv/SNpNYGiC1
 
+{{- if .Values.dcache.hsm.enabled }}
+  pool-setup: |-
+      queue define class -expire=0 -pending=0 -total=0 -open osm *
+      hsm create osm s3 script -command=/usr/bin/s3hsm -debuglog=/dev/null -s3bucket=hsm -s3config=/opt/dcache/etc/s3-tape.yml
+{{- end }}
+
   poolmanager.conf: |-
     psu create unit -store *@*
     psu create unit -net 0.0.0.0/0.0.0.0

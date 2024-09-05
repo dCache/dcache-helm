@@ -12,6 +12,8 @@ image:
 dcache:
   door:
     enabled: true
+  hsm:
+    enabled: false
   pools:
     - a
     - b
