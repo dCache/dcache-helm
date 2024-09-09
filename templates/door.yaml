@@ -50,9 +50,9 @@ spec:
           mountPath: /opt/dcache/etc/gplazma.conf
           subPath: gplazma.conf
           readOnly: true
-        - name: grid-mapfile
-          mountPath: /opt/dcache/etc/grid-mapfile
-          subPath: grid-mapfile
+        - name: multimap-id-to-username
+          mountPath: /opt/dcache/etc/multimap-id-to-username.conf
+          subPath: multimap-id-to-username.conf
           readOnly: true
         - name: vorolemap
           mountPath: /opt/dcache/etc/grid-vorolemap
@@ -114,12 +114,12 @@ spec:
           items:
           - key: "gplazma.conf"
             path: "gplazma.conf"
-      - name: grid-mapfile
+      - name: multimap-id-to-username
         configMap:
           name: {{ $.Release.Name }}-configmap
           items:
-          - key: "grid-mapfile"
-            path: "grid-mapfile"
+          - key: "multimap-id-to-username"
+            path: "multimap-id-to-username.conf"
       - name: vorolemap
         configMap:
           name: {{ $.Release.Name }}-configmap

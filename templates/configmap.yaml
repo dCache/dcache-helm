@@ -213,13 +213,13 @@ data:
     auth    optional    voms
     auth    sufficient  htpasswd
     map     optional    vorolemap
-    map     optional    gridmap
+    map     optional    multimap gplazma.multimap.file=/opt/dcache/etc/multimap-id-to-username.conf
     map     requisite   authzdb
     session requisite   roles
     session requisite   authzdb
 
-  grid-mapfile: |-
-    "/C=DE/ST=Hamburg/O=dCache.ORG/CN=Kermit the frog" kermit
+  multimap-id-to-username: |-
+    "dn:/C=DE/ST=Hamburg/O=dCache.ORG/CN=Kermit the frog" kermit
 
   grid-vorolemap: |-
     "*" "/desy" desyuser
