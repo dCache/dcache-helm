@@ -21,6 +21,7 @@ data:
     [door-svc/httpd]
 
     [door-svc/gplazma]
+    gplazma.oidc.provider!k8s = http://keycloak:8080/realms/dcache-test
     gplazma.gridmap.file=/opt/dcache/etc/grid-mapfile
     gplazma.authzdb.file=/opt/dcache/etc/storage-authzdb
     gplazma.vorolemap.file=/opt/dcache/etc/grid-vorolemap
@@ -211,6 +212,7 @@ data:
   gplazma.conf: |-
     auth    optional    x509
     auth    optional    voms
+    auth    optional    oidc
     auth    sufficient  htpasswd
     map     optional    vorolemap
     map     optional    multimap gplazma.multimap.file=/opt/dcache/etc/multimap-id-to-username.conf
