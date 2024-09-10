@@ -120,7 +120,7 @@ spec:
           items:
           - key: "multimap-id-to-username"
             path: "multimap-id-to-username.conf"
-      - name: multimap-id-to-groupnam
+      - name: multimap-id-to-groupname
         configMap:
           name: {{ $.Release.Name }}-configmap
           items:
