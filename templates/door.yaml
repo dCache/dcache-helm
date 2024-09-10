@@ -54,7 +54,7 @@ spec:
           mountPath: /opt/dcache/etc/multimap-id-to-username.conf
           subPath: multimap-id-to-username.conf
           readOnly: true
-        - name: multimap-id-to-username
+        - name: multimap-id-to-groupname
           mountPath: /opt/dcache/etc/multimap-id-to-groupname.conf
           subPath: multimap-id-to-groupname.conf
           readOnly: true
@@ -120,7 +120,7 @@ spec:
           items:
           - key: "multimap-id-to-username"
             path: "multimap-id-to-username.conf"
-      - name: vorolemap
+      - name: multimap-id-to-groupnam
         configMap:
           name: {{ $.Release.Name }}-configmap
           items:
