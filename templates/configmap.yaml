@@ -221,7 +221,7 @@ data:
     session requisite   authzdb
 
   multimap-id-to-username: |-
-    "dn:/C=DE/ST=Hamburg/O=dCache.ORG/CN=Kermit the frog" username:kermit uid:1000 gid:1000
+    "dn:/C=DE/ST=Hamburg/O=dCache.ORG/CN=Kermit the frog" username:kermit uid:1000 gid:1000,true
 
   multimap-id-to-groupname: |-
     fqan:/desy username:desyuser uid:1000 gid:2000,true
