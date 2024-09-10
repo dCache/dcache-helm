@@ -225,6 +225,7 @@ data:
 
   multimap-id-to-groupname: |-
     fqan:/desy username:desyuser uid:1000 gid:2000,true
+    op:k8s username:desyuser uid:1000 gid:2000,true
 
   storage-authzdb: |-
     version 2.1
