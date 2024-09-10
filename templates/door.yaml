@@ -54,9 +54,9 @@ spec:
           mountPath: /opt/dcache/etc/multimap-id-to-username.conf
           subPath: multimap-id-to-username.conf
           readOnly: true
-        - name: vorolemap
-          mountPath: /opt/dcache/etc/grid-vorolemap
-          subPath: grid-vorolemap
+        - name: multimap-id-to-username
+          mountPath: /opt/dcache/etc/multimap-id-to-groupname.conf
+          subPath: multimap-id-to-groupname.conf
           readOnly: true
         - name: storage-authzdb
           mountPath: /opt/dcache/etc/storage-authzdb
@@ -124,8 +124,8 @@ spec:
         configMap:
           name: {{ $.Release.Name }}-configmap
           items:
-          - key: "grid-vorolemap"
-            path: "grid-vorolemap"
+          - key: "multimap-id-to-groupname"
+            path: "multimap-id-to-groupname.conf"
       - name: storage-authzdb
         configMap:
           name: {{ $.Release.Name }}-configmap
