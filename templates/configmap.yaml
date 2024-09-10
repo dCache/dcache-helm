@@ -221,7 +221,7 @@ data:
     session requisite   authzdb
 
   multimap-id-to-username: |-
-    "dn:/C=DE/ST=Hamburg/O=dCache.ORG/CN=Kermit the frog" kermit
+    "dn:/C=DE/ST=Hamburg/O=dCache.ORG/CN=Kermit the frog" username:kermit
 
   grid-vorolemap: |-
     "*" "/desy" desyuser
