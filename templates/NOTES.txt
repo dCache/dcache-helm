@@ -11,3 +11,17 @@ Y88b 888 Y88b  d88P 888  888 Y88b.    888  888 Y8b.
                                                         
 
 
+
+Get the list of pods by executing:
+
+  kubectl get pods --namespace {{ .Release.Namespace }} -l app.kubernetes.io/instance={{ .Release.Name }}
+
+
+Access the pod you want to debug by executing
+
+  kubectl exec --namespace {{ .Release.Namespace }} -ti <NAME OF THE POD> -- /bin/sh
+
+
+Access frontend service by running these commands:
+
+  kubectl port-forward --namespace {{ .Release.Namespace }} svc/{{ .Release.Name }}-door-svc 3881:{{  .Values.services.frontends.port }} &
