@@ -28,6 +28,9 @@ cell:
 zookeeper:
   servers: cells-zookeeper:2181
 
+kafka:
+  enabled: true
+  bootstrap_servers: billing-kafka:9092
 
 # liveness, readiness and startup probes
 

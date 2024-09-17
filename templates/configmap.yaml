@@ -176,8 +176,11 @@ data:
     chimerashell.db.name = ${chimera.db.name}
 
     dcache.zookeeper.connection={{ $.Values.zookeeper.servers }}
-    dcache.kafka.bootstrap-servers=billing-kafka:9092
+
+{{- if .Values.kafka.enabled}}
+    dcache.kafka.bootstrap-servers={{ $.Values.kafka.bootstrap_servers }}
     dcache.enable.kafka = true
+{{- end}}
     dcache.layout=dcache-k8s
     dcache.enable.overwrite = true
     #webdav.redirect.allow-https=false
