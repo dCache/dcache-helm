@@ -1,3 +1,10 @@
+{{/*
+Selector labels
+*/}}
+{{- define "dcache.selectorLabels" -}}
+app.kubernetes.io/name: {{ .Chart.Name }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
 
 {{/*
 Add CA certs and generate host certificate

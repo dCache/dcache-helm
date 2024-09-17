@@ -14,6 +14,7 @@ spec:
   template:
     metadata:
       labels:
+        {{- include "dcache.selectorLabels" . | nindent 8 }}
         app: door
     spec:
       containers:

@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app: pool-{{ . }}
+        {{- include "dcache.selectorLabels" $ | nindent 8 }}
     spec:
       securityContext:
         fsGroup: 1000
