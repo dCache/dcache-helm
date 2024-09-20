@@ -22,9 +22,7 @@ data:
 
     [door-svc/gplazma]
     gplazma.oidc.provider!k8s = http://keycloak:8080/realms/dcache-test -suppress=audience
-    gplazma.gridmap.file=/opt/dcache/etc/grid-mapfile
     gplazma.authzdb.file=/opt/dcache/etc/storage-authzdb
-    gplazma.vorolemap.file=/opt/dcache/etc/grid-vorolemap
     gplazma.htpasswd.file=/opt/dcache/etc/htpasswd
 
   {{ if .Values.services.frontend.enabled }}
