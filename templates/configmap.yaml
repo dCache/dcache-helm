@@ -31,6 +31,7 @@ data:
     frontend.authn.protocol=http
     frontend.net.port=3880
     frontend.authz.anonymous-operations=READONLY
+    frontend.srr.public=true
   {{- end }}
 
   {{ if .Values.services.frontends.enabled }}
@@ -39,6 +40,7 @@ data:
     frontend.authn.protocol=https
     frontend.net.port=3881
     frontend.authz.anonymous-operations=READONLY
+    frontend.srr.public=true
   {{- end }}
 
   {{ if .Values.services.nfs.enabled }}
