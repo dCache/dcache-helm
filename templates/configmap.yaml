@@ -25,6 +25,8 @@ data:
     gplazma.authzdb.file=/opt/dcache/etc/storage-authzdb
     gplazma.htpasswd.file=/opt/dcache/etc/htpasswd
 
+    [door-svc/bulk]
+
   {{ if .Values.services.frontend.enabled }}
     [door-svc/frontend]
     frontend.cell.name = Frontend
@@ -169,6 +171,7 @@ data:
     srmmanager.db.name=chimera
     pinmanager.db.name=chimera
     spacemanager.db.name = chimera
+    bulk.db.name = chimera
 
     chimerashell.db.host = ${chimera.db.host}
     chimerashell.db.user = ${chimera.db.user}
