@@ -1,6 +1,7 @@
 
 image:
-  repository: gitlab.desy.de:5555/dcache/dcache
+  registry: gitlab.desy.de:5555
+  repository: dcache/dcache
   tag: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'

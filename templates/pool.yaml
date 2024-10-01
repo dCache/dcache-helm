@@ -19,7 +19,7 @@ spec:
         fsGroup: 1000
       containers:
       - name: pool
-        image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag | default $.Chart.AppVersion }}"
+        image: "{{ $.Values.image.registry }}/{{ $.Values.image.repository }}:{{ $.Values.image.tag | default $.Chart.AppVersion }}"
         imagePullPolicy: {{ $.Values.image.pullPolicy }}
         command: ["/run.sh", "pool-{{ . }}-svc"]
         {{- if $.Values.readinessProbe.enabled}}

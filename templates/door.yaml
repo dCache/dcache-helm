@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: dcache-door
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         command: ["/run.sh", "door-svc" ]
         {{- if .Values.readinessProbe.enabled}}
