@@ -5,8 +5,15 @@ variables:
   PACKAGE: dcache-0.1.0.tgz
 
 stages:
+  - test
   - package
   - upload
+
+lint:
+  stage: test
+  image: dtzar/helm-kubectl:latest
+  script:
+    - 'helm lint . --debug'
 
 package:
   stage: package
