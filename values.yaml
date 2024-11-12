@@ -18,7 +18,14 @@ dcache:
   pools:
     - a
     - b
-    - c 
+    - c
+  #
+  # Extra modules added into /opt/dcache/share/plugins directory
+  #
+  plugins:
+    cta:
+      enabled: false
+      package: https://gitlab.desy.de/dcache/dcache-cta/-/package_files/12985/download
 
 cell:
   tunnel: 11111

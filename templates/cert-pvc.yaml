@@ -10,6 +10,17 @@ spec:
   accessModes:
     - ReadWriteOnce
 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ $.Release.Name }}-pool-{{ . }}-plugins-store
+spec:
+  resources:
+    requests:
+      storage: 100Mi
+  accessModes:
+    - ReadWriteOnce
+---
 {{ end }}
 
 apiVersion: v1
