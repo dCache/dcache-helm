@@ -15,7 +15,7 @@ Add CA certs and generate host certificate
             runAsUser: 0
             runAsGroup: 0
           name: init-host-certs
-          image: "docker.io/dcache/ci-init-cert:1.1"
+          image: "docker.io/dcache/ci-init-cert:1.2"
           env:
             - name: AUTOCA_URL
               value: https://ci.dcache.org/ca
