@@ -205,6 +205,12 @@ data:
     /opt/dcache/bin/chimera chown 1000:1000 /data/g2 || true
     /opt/dcache/bin/chimera mkdir /data/s2 || true
     /opt/dcache/bin/chimera chown 1000:1000 /data/s2 || true
+  {{- if .Values.dcache.plugins.cta.enabled }}
+    /opt/dcache/bin/chimera mkdir /data/cta || true
+    /opt/dcache/bin/chimera chown 1000:1000 /data/cta || true
+    /opt/dcache/bin/chimera writetag /data/cta sGroup "tape"
+    /opt/dcache/bin/chimera writetag /data/cta hsmInstance "cta"
+  {{- end }}
   {{- range .Values.dcache.pools }}
     /opt/dcache/bin/chimera mkdir /data/pool-{{.}} || true
     /opt/dcache/bin/chimera chown 1000:1000 /data/pool-{{.}} || true
