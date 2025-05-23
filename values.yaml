@@ -26,6 +26,11 @@ dcache:
     cta:
       enabled: false
       package: https://gitlab.desy.de/dcache/dcache-cta/-/package_files/12985/download
+      endpoint: cta-frontend.some.domain:17017
+      user: cta-user
+      group: cta-group
+      instance: cta-instance
+      ioport: 1094
 
 cell:
   tunnel: 11111
