@@ -274,6 +274,7 @@ data:
 
     psu create ugroup any-store
     psu addto ugroup any-store *@*
+    psu create unit -store test:tape@cta
 
     psu create ugroup world-net
     psu addto ugroup world-net 0.0.0.0/0.0.0.0
@@ -305,7 +306,7 @@ data:
     psu create unit -store test:pool-{{ . }}@osm
     psu create ugroup pool-{{ . }}-store
     psu addto ugroup pool-{{ . }}-store test:pool-{{ . }}@osm
-    # psu addto ugroup any-store test:pool-{{ . }}@osm
+    psu addto ugroup pool-{{ . }}-store test:tape@cta
 
     psu create link pool-{{ . }}-link any-protocol pool-{{ . }}-store world-net
     psu set link pool-{{ . }}-link -readpref=20 -writepref=20 -cachepref=20 -p2ppref=20
