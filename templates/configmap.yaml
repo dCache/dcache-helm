@@ -259,7 +259,7 @@ data:
       hsm create osm s3 script -command=/usr/bin/s3hsm -debuglog=/dev/null -s3bucket=hsm -s3config=/opt/dcache/etc/s3-tape.yml
   {{- if .Values.dcache.plugins.cta.enabled }}
       queue define class -expire=0 -pending=0 -total=0 -open cta *
-      hsm create cta cta dcache-cta -cta-frontend-addr={{ .Values.dcache.plugins.cta.endpoint }} -cta-user={{ .Values.dcache.plugins.cta.user }} -cta-group={{ .Values.dcache.plugins.cta.group }} -cta-instance={{ .Values.dcache.plugins.cta.instance }} -io-port={{ .Values.dcache.plugins.cta.ioport }}
+      hsm create cta cta dcache-cta -cta-frontend-addr={{ .Values.dcache.plugins.cta.endpoint }} -cta-user={{ .Values.dcache.plugins.cta.user }} -cta-group={{ .Values.dcache.plugins.cta.group }} -cta-instance-name={{ .Values.dcache.plugins.cta.instance }} -io-port={{ .Values.dcache.plugins.cta.ioport }}
   {{- end }}
 {{- end }}
 
