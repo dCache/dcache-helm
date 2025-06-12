@@ -83,7 +83,7 @@ helm list
 ## Accessing admin interface
 
 ```
-kubectl run -ti --rm --image=kroniak/ssh-client admmin -- ssh -p 22224 admin@store-door-svc
+kubectl run -ti --rm --image=kroniak/ssh-client admin -- ssh -p 22224 admin@store-door-svc
 ```
 
 ## Accessing with client
