@@ -26,7 +26,9 @@ helm  install --set image.tag=10.0.3 \
 
 ## Enable CTA plugin
 
+```bash
 helm  install --set dcache.plugins.cta.enabled=true  my-release dcache/dcache
+```
 
 ## Accessing admin interface
 
