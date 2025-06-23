@@ -10,8 +10,8 @@
 
 ## Requirements
 
-- Access to kubernetes cluster (or local minikube installation). All exampled blow 
-  should work with both, unless extra noted.
+- Access to kubernetes cluster (or local minikube installation). All examples below 
+  should work with both, unless noted otherwise.
 - Kubernetes cli client
 - Helm cli client
 
