@@ -58,7 +58,7 @@ kubectl config set-context --current --namespace=dcache-test
 ```
 
 All following commands assume that the namespace is set. Otherwise `-n other-namespace`
-flag should be passes to all `helm` and `kubeclt` commands.
+flag should be passed to all `helm` and `kubeclt` commands.
 
 Then start required infrastructure (zookeeper, postgresql, kafka) 
 
