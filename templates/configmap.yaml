@@ -27,6 +27,8 @@ data:
 
     [door-svc/bulk]
 
+    [door-svc/qos-engine]
+
   {{ if .Values.services.frontend.enabled }}
     [door-svc/frontend]
     frontend.cell.name = Frontend
