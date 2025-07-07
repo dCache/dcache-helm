@@ -28,6 +28,9 @@ data:
     [door-svc/bulk]
 
     [door-svc/qos-engine]
+    [door-svc/qos-verifier]
+    [door-svc/qos-adjuster]
+    [door-svc/qos-scanner]
 
   {{ if .Values.services.frontend.enabled }}
     [door-svc/frontend]
