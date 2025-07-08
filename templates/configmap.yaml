@@ -27,10 +27,12 @@ data:
 
     [door-svc/bulk]
 
+  {{ if .Values.dcache.qos.enabled }}
     [door-svc/qos-engine]
     [door-svc/qos-verifier]
     [door-svc/qos-adjuster]
     [door-svc/qos-scanner]
+  {{- end }}
 
   {{ if .Values.services.frontend.enabled }}
     [door-svc/frontend]
