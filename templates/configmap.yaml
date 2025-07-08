@@ -179,7 +179,9 @@ data:
     pinmanager.db.name=chimera
     spacemanager.db.name = chimera
     bulk.db.name = chimera
-    qos-engine.db.name = chimera
+{{ if .Values.dcache.qos.enabled }}
+    qos.db.name = chimera
+{{- end }}
 
     chimerashell.db.host = ${chimera.db.host}
     chimerashell.db.user = ${chimera.db.user}
