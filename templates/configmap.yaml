@@ -181,6 +181,8 @@ data:
     bulk.db.name = chimera
 {{ if .Values.dcache.qos.enabled }}
     qos.db.name = chimera
+    qos-engine.db.name = chimera
+    qos-verifier.db.name = chimera
 {{- end }}
 
     chimerashell.db.host = ${chimera.db.host}
