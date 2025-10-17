@@ -42,7 +42,8 @@ dcache:
 helm  install --values custom-config.yaml my-release dcache/dcache
 ```
 
-> [!NOTE]: The custom configurations are added at the end of dcache and layout conf files.
+> [!NOTE]
+The custom configurations are added at the end of dcache and layout conf files.
 
 ## Enable CTA plugin
 
