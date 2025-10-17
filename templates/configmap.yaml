@@ -157,8 +157,10 @@ data:
     pool.mover.https.port.min={{ $.Values.mover.https }}
     pool.mover.https.port.max={{ $.Values.mover.https }}
 
-
 {{- end }}
+
+    # Extra user configuration
+{{ .Values.dcache.layoutExtra | indent 4 }}
 
   dcache.conf: |-
 {{- if .Values.services.srm.enabled }}
@@ -203,6 +205,10 @@ data:
 
     dcache.net.wan.port.min={{ $.Values.mover.wan_range_min }}
     dcache.net.wan.port.max={{ $.Values.mover.wan_range_max }}
+
+    # Extra user configuration
+{{ .Values.dcache.configExtra  | indent 4 }}
+
 
   00-init.sh: |-
     export JAVA=/usr/bin/java

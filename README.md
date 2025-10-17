@@ -24,6 +24,26 @@ helm  install --set image.tag=10.0.3 \
     --set "dcache.pools={d,f}"  my-release dcache/dcache
 ```
 
+## Add extra onfiguraton to dcache.conf of layout.conf files
+
+Two configuration properties control the: `dcache.configExtra` and `dcache.layoutExtra`. With a value files the confuguration can be adjusted as needed:
+
+```yaml
+dcache:
+  configExtra: |
+    custom.property = value
+
+  layoutExtra: |
+    [customDomain]
+    [customDomain/cell]
+```
+
+```bash
+helm  install --values custom-config.yaml my-release dcache/dcache
+```
+
+> [!NOTE]: The custom configurations are added at the end of dcache and layout conf files.
+
 ## Enable CTA plugin
 
 ```bash

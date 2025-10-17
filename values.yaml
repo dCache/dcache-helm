@@ -21,6 +21,13 @@ dcache:
     - a
     - b
     - c
+  # extra configuration for dcache.conf
+  configExtra: |
+
+  # extra configuration for layout.conf
+  layoutExtra: |
+
+
   #
   # Extra modules added into /opt/dcache/share/plugins directory
   #
