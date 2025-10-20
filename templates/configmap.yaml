@@ -13,6 +13,11 @@ data:
     dcache.broker.scheme = core
     dcache.java.options.extra=-Dorg.dcache.net.localaddresses={{ $.Release.Name }}-door-svc.{{ $.Release.Namespace }}.svc.cluster.local
 
+{{ if .Values.zookeeper.embedded }}
+    [door-svc/zookeeper]
+{{- end }}
+
+
     [door-svc/poolmanager]
 
     [door-svc/pnfsmanager]
