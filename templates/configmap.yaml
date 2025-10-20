@@ -4,6 +4,10 @@ metadata:
   name: {{ .Release.Name }}-configmap
 data:
   dcache-k8s-door: |-
+
+    # Extra user configuration
+{{ .Values.dcache.layoutExtraPre | indent 4 }}
+
 {{ if .Values.dcache.door.enabled }}
     [door-svc]
     dcache.broker.scheme = core
@@ -163,6 +167,9 @@ data:
 {{ .Values.dcache.layoutExtra | indent 4 }}
 
   dcache.conf: |-
+    # Extra user configuration
+{{ .Values.dcache.configExtraPre  | indent 4 }}
+
 {{- if .Values.services.srm.enabled }}
     dcache.enable.space-reservation = true
     spacemanager.enable.unreserved-uploads-to-linkgroups = true

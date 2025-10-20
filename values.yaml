@@ -21,10 +21,19 @@ dcache:
     - a
     - b
     - c
-  # extra configuration for dcache.conf
+  # extra configuration for dcache.conf, placed before the standard configuration
+  configExtraPre: |
+    # custom configuration before other settings
+
+  # extra configuration for dcache.conf, placed after the standard configuration
   configExtra: |
 
-  # extra configuration for layout.conf
+
+  # extra configuration for layout.conf, placed before the standard layout
+  layoutExtraPre: |
+    # custom configuration before other settings
+
+  # extra configuration for layout.conf, placed after the standard layout
   layoutExtra: |
 
 
