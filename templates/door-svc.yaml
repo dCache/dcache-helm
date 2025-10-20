@@ -83,6 +83,13 @@ spec:
       targetPort: 3881
     {{- end }}
 
+    {{ if .Values.zookeeper.embedded }}
+    - name: zookeeper
+      port: 2181
+      targetPort: 2181
+    {{- end }}
+
+
     - name: cell-tunnel
       port: {{ $.Values.cell.tunnel }}
       targetPort: 11111

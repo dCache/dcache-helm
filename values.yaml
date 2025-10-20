@@ -57,6 +57,9 @@ cell:
 # Zookeeper to use
 #
 zookeeper:
+  # whether to use dCache-embedded zookeeper
+  embedded: false
+  # connection string to external zookeeper servers
   servers: cells-zookeeper:2181
 
 kafka:

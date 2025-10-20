@@ -199,7 +199,11 @@ data:
     chimerashell.db.password = ${chimera.db.password}
     chimerashell.db.name = ${chimera.db.name}
 
+{{- if .Values.zookeeper.embedded }}
+    dcache.zookeeper.connection={{ $.Release.Name }}-door-svc.{{ $.Release.Namespace }}.svc.cluster.local:2181
+{{- else }}
     dcache.zookeeper.connection={{ $.Values.zookeeper.servers }}
+{{- end}}
 
 {{- if .Values.kafka.enabled}}
     dcache.kafka.bootstrap-servers={{ $.Values.kafka.bootstrap_servers }}
