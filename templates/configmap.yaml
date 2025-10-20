@@ -205,7 +205,7 @@ data:
     chimerashell.db.name = ${chimera.db.name}
 
 {{- if .Values.zookeeper.embedded }}
-    dcache.zookeeper.connection={{ $.Release.Name }}-door-svc.{{ $.Release.Namespace }}.svc.cluster.local:2181
+    dcache.zookeeper.connection={{ $.Release.Name }}-dcache-door-0:2181
 {{- else }}
     dcache.zookeeper.connection={{ $.Values.zookeeper.servers }}
 {{- end}}
