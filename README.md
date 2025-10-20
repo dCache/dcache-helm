@@ -44,6 +44,35 @@ dcache:
 helm  install --values custom-config.yaml my-release dcache/dcache
 ```
 
+## Zookeeper
+
+dCache requires a Zookeeper instance to operate. You can either use an external Zookeeper or deploy an embedded Zookeeper instance together with dCache.
+By default, the chart is configured to use an external Zookeeper instance running at `cells-zookeeper:2181`. To deploy an embedded Zookeeper instance, set the following value:
+
+```yaml
+zookeeper:
+  embedded: true
+```
+
+or use the command line:
+
+```bash
+helm  install --set zookeeper.embedded=true my-release dcache/dcache
+```
+
+The list of Zookeeper servers can be configured via the `zookeeper.servers` value.
+
+```yaml
+zookeeper:
+  servers: zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
+```
+
+or via command line:
+
+```bash
+helm  install --set zookeeper.servers="zookeeper1:2181,zookeeper2:2181,zookeeper3:2181" my-release dcache/dcache
+```
+
 ## Enable CTA plugin
 
 ```bash
