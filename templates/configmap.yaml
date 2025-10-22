@@ -13,10 +13,10 @@ data:
     dcache.broker.scheme = core
     dcache.java.options.extra=-Dorg.dcache.net.localaddresses={{ $.Release.Name }}-door-svc.{{ $.Release.Namespace }}.svc.cluster.local
 
-{{ if .Values.zookeeper.embedded }}
+{{- if .Values.zookeeper.embedded }}
+    dcache.zookeeper.connection=localhost:2181
     [door-svc/zookeeper]
 {{- end }}
-
 
     [door-svc/poolmanager]
 
@@ -205,7 +205,7 @@ data:
     chimerashell.db.name = ${chimera.db.name}
 
 {{- if .Values.zookeeper.embedded }}
-    dcache.zookeeper.connection={{ $.Release.Name }}-dcache-door-0:2181
+    dcache.zookeeper.connection={{ $.Release.Name }}-door-svc.{{ $.Release.Namespace }}.svc.cluster.local:2181
 {{- else }}
     dcache.zookeeper.connection={{ $.Values.zookeeper.servers }}
 {{- end}}
