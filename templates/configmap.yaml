@@ -267,7 +267,7 @@ data:
     session requisite   authzdb
 
   multimap-id-to-username: |-
-    "dn:/C=DE/ST=Hamburg/O=dCache.ORG/CN=Kermit the frog" username:kermit uid:1000 gid:1000,true
+    "dn:/C=DE/ST=Hamburg/O=dCache.ORG/CN=Kermit the frog" username:desyuser uid:1000 gid:2000,true
 
   multimap-id-to-groupname: |-
     fqan:/desy username:desyuser uid:1000 gid:2000,true
@@ -278,7 +278,6 @@ data:
 
     authorize admin    read-write    0    0 / / /
     authorize desyuser read-write 1000 2000 / / /
-    authorize kermit   read-write 1000 1000 / / /
 
   linkgroupauthz: |-
     LinkGroup default-linkgroup
