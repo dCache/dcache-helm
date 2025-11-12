@@ -1,6 +1,6 @@
 
 image:
-  registry: gitlab.desy.de:5555
+  registry: docker.io
   repository: dcache/dcache
   tag: ""
   ## Specify a imagePullPolicy
