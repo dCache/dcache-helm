@@ -210,10 +210,6 @@ data:
     dcache.zookeeper.connection={{ $.Values.zookeeper.servers }}
 {{- end}}
 
-{{- if .Values.kafka.enabled}}
-    dcache.kafka.bootstrap-servers={{ $.Values.kafka.bootstrap_servers }}
-    dcache.enable.kafka = true
-{{- end}}
     dcache.layout=dcache-k8s
     dcache.enable.overwrite = true
     #webdav.redirect.allow-https=false
