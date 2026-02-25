@@ -123,15 +123,13 @@ data:
     ftp.enable.space-reservation=false
 {{- end }}
 
-
-{{- if .Values.services.srm.enabled }}
-
     [door-svc/transfermanagers]
     transfermanagers.limits.transfer-time = 8200
     transfermanagers.limits.transfer-time.unit=SECONDS
 
     [door-svc/pinmanager]
 
+{{- if .Values.services.srm.enabled }}
     [door-svc/srm]
     srm.loginbroker.address={{ $.Release.Name }}-door-svc.{{ $.Release.Namespace }}.svc.cluster.local
     [door-svc/srmmanager]
