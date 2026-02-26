@@ -133,11 +133,10 @@ data:
     [door-svc/srm]
     srm.loginbroker.address={{ $.Release.Name }}-door-svc.{{ $.Release.Namespace }}.svc.cluster.local
     [door-svc/srmmanager]
-
+{{- end }}
 
     [door-svc/spacemanager]
     spacemanager.authz.link-group-file-name=/opt/dcache/etc/linkgroupauthz.conf
-{{- end }}
 
 {{- if .Values.services.sshAdmin.enabled }}
     [door-svc/admin]
