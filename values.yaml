@@ -17,6 +17,8 @@ dcache:
     enabled: false
   qos:
     enabled: false
+  spacemanager:
+    enabled: true
   pools:
     - a
     - b

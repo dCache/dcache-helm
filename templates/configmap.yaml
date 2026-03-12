@@ -135,8 +135,10 @@ data:
     [door-svc/srmmanager]
 {{- end }}
 
+{{- if .Values.dcache.spacemanager.enabled }}
     [door-svc/spacemanager]
     spacemanager.authz.link-group-file-name=/opt/dcache/etc/linkgroupauthz.conf
+{{- end }}
 
 {{- if .Values.services.sshAdmin.enabled }}
     [door-svc/admin]
@@ -172,7 +174,7 @@ data:
     # Extra user configuration
 {{ .Values.dcache.configExtraPre  | indent 4 }}
 
-{{- if .Values.services.srm.enabled }}
+{{- if .Values.dcache.spacemanager.enabled }}
     dcache.enable.space-reservation = true
     spacemanager.enable.unreserved-uploads-to-linkgroups = true
 {{- else }}
