@@ -275,6 +275,7 @@ data:
   linkgroupauthz: |-
     LinkGroup default-linkgroup
     /desy/Role=*
+    desyuser
 
   htpasswd: |-
     admin:$apr1$nq7.vQxE$tvmghVXGplwv/SNpNYGiC1
