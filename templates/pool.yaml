@@ -21,6 +21,8 @@ spec:
       - name: pool
         image: "{{ $.Values.image.registry }}/{{ $.Values.image.repository }}:{{ $.Values.image.tag | default $.Chart.AppVersion }}"
         imagePullPolicy: {{ $.Values.image.pullPolicy }}
+        resources:
+          {{- toYaml $.Values.pool.resources | nindent 10 }}
         command: ["/run.sh", "pool-{{ . }}-svc"]
         {{- if $.Values.readinessProbe.enabled}}
         {{ include "dcache.readiness.probe" $ | indent 8 }}
