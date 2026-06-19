@@ -23,7 +23,12 @@ Add CA certs and generate host certificate
             - sh
             - -c
           args:
-            - /run.sh  ${AUTOCA_URL} {{ . }}
+            - |
+              # Injected a low connection timeout into fetch-crl
+              mkdir -p /etc/fetch-crl.d
+              echo -e "[default]\nconnect_timeout = 5\n" > /etc/fetch-crl.conf
+              
+              timeout 45 /run.sh ${AUTOCA_URL} {{ . }} || echo "WARNING: fetch-crl timed out or failed"
 
 {{- end }}
 
