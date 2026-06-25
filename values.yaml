@@ -157,17 +157,17 @@ mover:
 pool:
   resources:
     requests:
-      memory: "4Gi"
+      memory: "2Gi"
       cpu: "250m"
     limits:
-      memory: "6Gi"
+      memory: "2Gi"
       cpu: "1"
 
 door:
   resources:
     requests:
-      memory: "12Gi"
+      memory: "2Gi"
       cpu: "500m"
     limits:
-      memory: "16Gi"
+      memory: "2Gi"
       cpu: "2"
