@@ -153,3 +153,21 @@ mover:
   https: 38083
   wan_range_min: 28000
   wan_range_max: 28050
+
+pool:
+  resources:
+    requests:
+      memory: "2Gi"
+      cpu: "250m"
+    limits:
+      memory: "2Gi"
+      cpu: "1"
+
+door:
+  resources:
+    requests:
+      memory: "2Gi"
+      cpu: "500m"
+    limits:
+      memory: "2Gi"
+      cpu: "2"
