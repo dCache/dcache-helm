@@ -171,3 +171,22 @@ door:
     limits:
       memory: "2Gi"
       cpu: "2"
+
+
+## Optional extra list of additional volumeMounts for dCache container.
+## extraVolumeMounts:
+## - name: custom-mount
+##   mountPath: /custom/mount
+##   readOnly: true
+extraVolumeMounts: []
+
+
+
+## Optional extra list of additional volumes for dCache container.
+## - name: custom-volume
+##   emptyDir:
+##     sizeLimit: 50Mi
+## - name: custom-file
+##   configMap:
+##     name: custom-file-configmap
+extraVolumes: []

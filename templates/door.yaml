@@ -80,6 +80,9 @@ spec:
         - name: certs
           mountPath: /etc/grid-security
           readOnly: true
+      {{- if .Values.extraVolumeMounts }}
+      {{- .Values.extraVolumeMounts | toYaml | nindent 8 }}
+      {{- end }}
       initContainers:
       {{ $host := print $.Release.Name "-door-svc."  $.Release.Namespace ".svc.cluster.local" -}}
       {{ include "dcache.certs.init" $host }}
@@ -153,5 +156,8 @@ spec:
           items:
           - key: "poolmanager.conf"
             path: "poolmanager.conf"
+        {{- if .Values.extraVolumes }}
+        {{- .Values.extraVolumes | toYaml | nindent 6 }}
+        {{- end }}
 
 {{ end }}
