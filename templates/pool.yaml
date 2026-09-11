@@ -52,6 +52,9 @@ spec:
           subPath: setup
           readOnly: true
         {{- end}}
+        {{- if $.Values.extraVolumeMounts }}
+        {{- $.Values.extraVolumeMounts | toYaml | nindent 8 }}
+        {{- end }}
       initContainers:
       {{ $host := print $.Release.Name  "-pool-" . "-svc." $.Release.Namespace ".svc.cluster.local" -}}
       {{ include "dcache.certs.init" $host }}
@@ -76,6 +79,9 @@ spec:
           - key: "pool-setup"
             path: "setup"
       {{- end}}
+      {{- if $.Values.extraVolumes }}
+      {{- $.Values.extraVolumes | toYaml | nindent 6 }}
+      {{- end }}
   volumeClaimTemplates:
   - metadata:
       name: pool-data

@@ -51,6 +51,10 @@ dcache:
       group: cta-group
       instance: cta-instance
       ioport: 1094
+      useTls: mtls
+      caChain: /opt/dcache/etc/cta-ca-chain.pem
+      tlsCert: /opt/dcache/etc/cta-tls-cert.pem
+      tlsKey: /opt/dcache/etc/cta-tls-key.pem
 
 cell:
   tunnel: 11111
