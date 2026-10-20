@@ -224,27 +224,29 @@ data:
   00-init.sh: |-
     export JAVA=/usr/bin/java
     /opt/dcache/bin/dcache database update
-    /opt/dcache/bin/chimera writetag / OSMTemplate "StoreName test"
-    /opt/dcache/bin/chimera writetag / sGroup "default"
-    /opt/dcache/bin/chimera mkdir /testbase || true
-    /opt/dcache/bin/chimera chmod 0777 /testbase || true
-    /opt/dcache/bin/chimera mkdir /data || true
-    /opt/dcache/bin/chimera chmod 0777 /data || true
-    /opt/dcache/bin/chimera mkdir /data/g2 || true
-    /opt/dcache/bin/chimera chown 1000:1000 /data/g2 || true
-    /opt/dcache/bin/chimera mkdir /data/s2 || true
-    /opt/dcache/bin/chimera chown 1000:1000 /data/s2 || true
+    /opt/dcache/bin/chimera -e - << EOF
+    writetag / OSMTemplate "StoreName test"
+    writetag / sGroup "default"
+    mkdir /testbase
+    chmod 0777 /testbase
+    mkdir /data
+    chmod 0777 /data
+    mkdir /data/g2
+    chown 1000:1000 /data/g2
+    mkdir /data/s2
+    chown 1000:1000 /data/s2
   {{- if .Values.dcache.plugins.cta.enabled }}
-    /opt/dcache/bin/chimera mkdir /data/cta || true
-    /opt/dcache/bin/chimera chown 1000:1000 /data/cta || true
-    /opt/dcache/bin/chimera writetag /data/cta sGroup "tape"
-    /opt/dcache/bin/chimera writetag /data/cta hsmInstance "cta"
+    mkdir /data/cta
+    chown 1000:1000 /data/cta
+    writetag /data/cta sGroup "tape"
+    writetag /data/cta hsmInstance "cta"
   {{- end }}
   {{- range .Values.dcache.pools }}
-    /opt/dcache/bin/chimera mkdir /data/pool-{{.}} || true
-    /opt/dcache/bin/chimera chown 1000:1000 /data/pool-{{.}} || true
-    /opt/dcache/bin/chimera writetag /data/pool-{{.}} sGroup "pool-{{.}}"
+    mkdir /data/pool-{{.}}
+    chown 1000:1000 /data/pool-{{.}}
+    writetag /data/pool-{{.}} sGroup "pool-{{.}}"
   {{- end }}
+    EOF
 
 
   export: |-
