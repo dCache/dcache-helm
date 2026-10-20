@@ -65,6 +65,7 @@ Readiness probe
 {{- define "dcache.readiness.probe" }}
 readinessProbe:
   initialDelaySeconds: {{.Values.readinessProbe.initialDelaySeconds }}
+  periodSeconds:       {{ .Values.readinessProbe.periodSeconds }}
   timeoutSeconds:      {{.Values.readinessProbe.timeoutSeconds }}
   failureThreshold:    {{ .Values.readinessProbe.failureThreshold }}
   successThreshold:    {{ .Values.readinessProbe.successThreshold }}
@@ -76,6 +77,7 @@ Liveness probe
 {{- define "dcache.liveness.probe" }}
 livenessProbe:
   initialDelaySeconds: {{.Values.livenessProbe.initialDelaySeconds }}
+  periodSeconds:       {{ .Values.livenessProbe.periodSeconds }}
   timeoutSeconds:      {{.Values.livenessProbe.timeoutSeconds }}
   failureThreshold:    {{ .Values.livenessProbe.failureThreshold }}
   successThreshold:    {{ .Values.livenessProbe.successThreshold }}
@@ -88,6 +90,7 @@ Startup probe
 {{- define "dcache.startup.probe" }}
 startupProbe:
   initialDelaySeconds: {{.Values.startupProbe.initialDelaySeconds }}
+  periodSeconds:       {{ .Values.startupProbe.periodSeconds }}
   timeoutSeconds:      {{.Values.startupProbe.timeoutSeconds }}
   failureThreshold:    {{ .Values.startupProbe.failureThreshold }}
   successThreshold:    {{ .Values.startupProbe.successThreshold }}
