@@ -2,7 +2,7 @@
 
 variables:
   CHANNEL: test
-  PACKAGE: dcache-0.2.0.tgz
+  PACKAGE: dcache-0.2.1.tgz
 
 stages:
   - test
