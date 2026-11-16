@@ -382,6 +382,23 @@ data:
     psu set link pool-{{ . }}-link -readpref=20 -writepref=20 -cachepref=20 -p2ppref=20
     psu addto link pool-{{ . }}-link pool-{{ . }}
   {{- end }}
+  {{- if $s3 }}
+
+    # S3 transfers only on the pools of this release: pools of older dCache
+    # versions, e.g. in the default pool group, do not support protocol S3
+    psu create unit -protocol S3/*
+    psu create ugroup s3-protocol
+    psu addto ugroup s3-protocol S3/*
+
+    psu create pgroup s3-pools
+    {{- range .Values.dcache.pools }}
+    psu addto pgroup s3-pools pool-{{ . }}
+    {{- end }}
+
+    psu create link s3-link s3-protocol any-store world-net
+    psu set link s3-link -readpref=30 -writepref=30 -cachepref=30 -p2ppref=-1
+    psu addto link s3-link s3-pools
+  {{- end }}
 
 
 immutable: true
