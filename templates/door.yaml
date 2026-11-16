@@ -69,6 +69,12 @@ spec:
           mountPath: /opt/dcache/etc/htpasswd
           subPath: htpasswd
           readOnly: true
+        {{- if or .Values.services.s3.enabled .Values.services.s3s.enabled }}
+        - name: s3-keys
+          mountPath: /opt/dcache/etc/s3-keys.conf
+          subPath: s3-keys.conf
+          readOnly: true
+        {{- end }}
         - name: linkgroupauthz
           mountPath: /opt/dcache/etc/linkgroupauthz.conf
           subPath: linkgroupauthz.conf
@@ -144,6 +150,14 @@ spec:
           items:
           - key: "htpasswd"
             path: "htpasswd"
+      {{- if or .Values.services.s3.enabled .Values.services.s3s.enabled }}
+      - name: s3-keys
+        configMap:
+          name: {{ $.Release.Name }}-configmap
+          items:
+          - key: "s3-keys.conf"
+            path: "s3-keys.conf"
+      {{- end }}
       - name: linkgroupauthz
         configMap:
           name: {{ $.Release.Name }}-configmap

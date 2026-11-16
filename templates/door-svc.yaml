@@ -82,6 +82,16 @@ spec:
       port: {{ $.Values.services.frontends.port }}
       targetPort: 3881
     {{- end }}
+    {{- if .Values.services.s3.enabled }}
+    - name: s3-door
+      port: {{ $.Values.services.s3.port }}
+      targetPort: 9000
+    {{- end }}
+    {{- if .Values.services.s3s.enabled }}
+    - name: s3s-door
+      port: {{ $.Values.services.s3s.port }}
+      targetPort: 9001
+    {{- end }}
 
     {{ if .Values.zookeeper.embedded }}
     - name: zookeeper

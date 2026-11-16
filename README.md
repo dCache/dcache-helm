@@ -91,6 +91,21 @@ kubectl run --rm -ti admin-ssh --image kroniak/ssh-client -- ssh -p 22224 -l adm
 kubectl port-forward svc/<my-release>-door-svc 3880:3880
 ```
 
+## Enable S3 doors
+
+The S3 doors require dCache 12.1 or newer and are disabled by default.
+`services.s3` runs a plain HTTP door on port 9000, `services.s3s` an HTTPS
+door on port 9001. Buckets are directories under `/data/s3`.
+
+```bash
+helm  install --set services.s3.enabled=true --set services.s3s.enabled=true my-release dcache/dcache
+```
+
+The chart configures fixed test credentials (access key / secret):
+`s3main` / `let-me-in-s3main` (mapped to `desyuser`), `s3alt` /
+`let-me-in-s3alt` and `s3tenant` / `let-me-in-s3tenant`. They are stored in
+plain text in the ConfigMap: use them for testing only.
+
 
 ## Acknowledgement
 

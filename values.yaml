@@ -150,6 +150,15 @@ services:
     enabled: true
     port: 3881
 
+  # S3 doors require dCache 12.1 or newer
+  s3:
+    enabled: false
+    port: 9000
+
+  s3s:
+    enabled: false
+    port: 9001
+
 mover:
   nfs: 32049
   xrootd: 31094

@@ -1,3 +1,4 @@
+{{- $s3 := or .Values.services.s3.enabled .Values.services.s3s.enabled -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -88,6 +89,22 @@ data:
     webdav.authz.anonymous-operations=READONLY
     webdav.redirect.on-write=false
     webdav.redirect.on-read=true
+{{- end }}
+{{- if .Values.services.s3.enabled }}
+
+    [door-svc/s3]
+    s3.cell.name=s3-plain
+    s3.net.port=9000
+    s3.authn.protocol=http
+    s3.root=/data/s3
+{{- end }}
+{{- if .Values.services.s3s.enabled }}
+
+    [door-svc/s3]
+    s3.cell.name=s3-tls
+    s3.net.port=9001
+    s3.authn.protocol=https
+    s3.root=/data/s3
 {{- end }}
 
 {{ if .Values.services.xrootd.enabled }}
@@ -246,6 +263,10 @@ data:
     chown 1000:1000 /data/pool-{{.}}
     writetag /data/pool-{{.}} sGroup "pool-{{.}}"
   {{- end }}
+  {{- if $s3 }}
+    mkdir /data/s3
+    chmod 0777 /data/s3
+  {{- end }}
     EOF
 
 
@@ -265,6 +286,11 @@ data:
 
   multimap-id-to-username: |-
     "dn:/C=DE/ST=Hamburg/O=dCache.ORG/CN=Kermit the frog" username:desyuser uid:1000 gid:2000,true
+  {{- if $s3 }}
+    s3:s3main username:desyuser uid:1000 gid:2000,true
+    s3:s3alt username:s3alt uid:2001 gid:2000,true
+    s3:s3tenant username:s3tenant uid:2002 gid:2000,true
+  {{- end }}
 
   multimap-id-to-groupname: |-
     fqan:/desy username:desyuser uid:1000 gid:2000,true
@@ -275,6 +301,10 @@ data:
 
     authorize admin    read-write    0    0 / / /
     authorize desyuser read-write 1000 2000 / / /
+  {{- if $s3 }}
+    authorize s3alt    read-write 2001 2000 / / /
+    authorize s3tenant read-write 2002 2000 / / /
+  {{- end }}
 
   linkgroupauthz: |-
     LinkGroup default-linkgroup
@@ -283,6 +313,15 @@ data:
 
   htpasswd: |-
     admin:$apr1$nq7.vQxE$tvmghVXGplwv/SNpNYGiC1
+
+{{- if $s3 }}
+
+  # fixed S3 access keys for testing: <access-key> <secret>
+  s3-keys.conf: |-
+    s3main let-me-in-s3main
+    s3alt let-me-in-s3alt
+    s3tenant let-me-in-s3tenant
+{{- end }}
 
 {{- if .Values.dcache.hsm.enabled }}
   pool-setup: |-
